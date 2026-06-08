@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Lab — RGB · HEX · HSL · HSV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="theme-dark">
+
+<!-- ═══════════════════════════════════════════
+     APP ROOT — 100vh grid
+═══════════════════════════════════════════ -->
+<div class="app" id="app">
+
+  <!-- ── TOPBAR ──────────────────────────── -->
+  <header class="topbar">
+    <div class="tb-left">
+      <span class="logo">COLOR LAB</span>
+    </div>
+
+    <div class="tb-center">
+      <div class="space-tabs" role="tablist">
+        <button class="space-tab active" data-space="hsl" role="tab">Bicono HSL</button>
+        <button class="space-tab"        data-space="hsv" role="tab">Cono HSV</button>
+      </div>
+    </div>
+
+    <div class="tb-right">
+      <div class="fmt-pills" role="group" aria-label="Formato de copia">
+        <button class="fmt-pill"        data-fmt="rgb">RGB</button>
+        <button class="fmt-pill active" data-fmt="hex">HEX</button>
+        <button class="fmt-pill"        data-fmt="hsl">HSL</button>
+        <button class="fmt-pill"        data-fmt="hsv">HSV</button>
+      </div>
+      <button class="theme-btn" id="theme-btn" title="Alternar tema claro / oscuro">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── 3-COLUMN LAB ──────────────────────── -->
+  <div class="lab">
+
+    <!-- ─── COLUMNA IZQUIERDA (320px) ─────── -->
+    <aside class="col-left">
+
+      <!-- Swatch -->
+      <div class="swatch" id="swatch">
+        <span class="sw-hex"    id="sw-hex">#FF6432</span>
+        <span class="sw-family" id="sw-family">Naranja</span>
+      </div>
+
+      <!-- Rueda cromática -->
+      <div class="wheel-wrap">
+        <canvas id="hue-wheel" width="186" height="186"></canvas>
+        <p class="wheel-hint">Arrastra para cambiar el tono</p>
+      </div>
+
+      <!-- Sliders RGB -->
+      <div class="rgb-panel">
+        <div class="panel-ttl">RGB — Intensidades de luz</div>
+        <div class="sl-row">
+          <span class="sl-ch r">R</span>
+          <input type="range" id="sl-r" min="0" max="255" value="255" />
+          <input type="number" id="sn-r" class="sl-num" min="0" max="255" value="255" />
+        </div>
+        <div class="sl-row">
+          <span class="sl-ch g">G</span>
+          <input type="range" id="sl-g" min="0" max="255" value="100" />
+          <input type="number" id="sn-g" class="sl-num" min="0" max="255" value="100" />
+        </div>
+        <div class="sl-row">
+          <span class="sl-ch b">B</span>
+          <input type="range" id="sl-b" min="0" max="255" value="50" />
+          <input type="number" id="sn-b" class="sl-num" min="0" max="255" value="50" />
+        </div>
+      </div>
+
+    </aside><!-- /col-left -->
+
+    <!-- ─── COLUMNA CENTRAL (flex) ─────────── -->
+    <main class="col-center">
+
+      <!-- Toggle de vista -->
+      <div class="view-toggle">
+        <button class="view-btn"        data-view="top">Vista superior</button>
+        <button class="view-btn"        data-view="side">Vista lateral</button>
+        <button class="view-btn active" data-view="3d">3D</button>
+      </div>
+
+      <!-- Área de visualización -->
+      <div class="view-area" id="view-area">
+        <!-- Vista superior: rueda HS al L/V actual -->
+        <div class="view-panel" id="panel-top">
+          <canvas id="top-view"></canvas>
+        </div>
+        <!-- Vista lateral: sección transversal 2D -->
+        <div class="view-panel" id="panel-side">
+          <canvas id="side-view"></canvas>
+        </div>
+        <!-- 3D: Three.js -->
+        <div class="view-panel panel-3d active" id="panel-3d">
+          <div id="three-hsl" class="three-slot"></div>
+          <div id="three-hsv" class="three-slot hidden"></div>
+          <div class="kb-hint">
+            <span class="kb-group"><kbd>←</kbd><kbd>→</kbd> Horizontal</span>
+            <span class="kb-sep">·</span>
+            <span class="kb-group"><kbd>↑</kbd><kbd>↓</kbd> Claridad</span>
+            <span class="kb-sep">·</span>
+            <span class="kb-group"><kbd>⇧↑</kbd><kbd>⇧↓</kbd> Profundidad</span>
+            <span class="kb-sep">·</span>
+            <span class="kb-group"><kbd>Ctrl</kbd> fino</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider L / V -->
+      <div class="lv-control">
+        <div class="lv-row">
+          <span class="lv-lbl" id="lv-lbl">L</span>
+          <input type="range" id="lv-slider" class="lv-slider" min="0" max="100" value="60" />
+          <span class="lv-val" id="lv-val">60%</span>
+        </div>
+      </div>
+
+      <!-- Mini valores H · S · L/V -->
+      <div class="hsl-mini">
+        <span>H <b id="mini-h">15°</b></span>
+        <span>S <b id="mini-s">100%</b></span>
+        <span><span id="mini-lv-lbl">L</span> <b id="mini-lv">60%</b></span>
+      </div>
+
+    </main><!-- /col-center -->
+
+    <!-- ─── COLUMNA DERECHA (260px) ────────── -->
+    <aside class="col-right">
+
+      <!-- Panel: Representaciones -->
+      <div class="panel">
+        <div class="panel-ttl">Representaciones</div>
+        <div class="repr-table">
+          <div class="repr-row" data-copy-id="repr-rgb">
+            <span class="rk">RGB</span>
+            <code class="rv" id="repr-rgb">rgb(255, 100, 50)</code>
+            <span class="ri">⎘</span>
+          </div>
+          <div class="repr-row" data-copy-id="repr-hex">
+            <span class="rk">HEX</span>
+            <code class="rv" id="repr-hex">#FF6432</code>
+            <span class="ri">⎘</span>
+          </div>
+          <div class="repr-row" data-copy-id="repr-hsl">
+            <span class="rk">HSL</span>
+            <code class="rv" id="repr-hsl">hsl(15°, 100%, 60%)</code>
+            <span class="ri">⎘</span>
+          </div>
+          <div class="repr-row" data-copy-id="repr-hsv">
+            <span class="rk">HSV</span>
+            <code class="rv" id="repr-hsv">hsv(15°, 80%, 100%)</code>
+            <span class="ri">⎘</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel: Familia cromática -->
+      <div class="panel">
+        <div class="panel-ttl">Familia cromática</div>
+        <div class="fam-chip">
+          <span class="fam-dot" id="fam-dot"></span>
+          <span class="fam-txt" id="fam-txt">Naranja — 14.6° en la rueda</span>
+        </div>
+      </div>
+
+      <!-- Panel: Valores HSL/HSV barras -->
+      <div class="panel">
+        <div class="panel-ttl" id="hslv-ttl">Valores HSL</div>
+        <div class="hslv-bars">
+
+          <div class="hb-row">
+            <span class="hb-lbl">H</span>
+            <div class="hb-track hue-tr">
+              <div class="hb-thumb" id="hbth-h"></div>
+            </div>
+            <span class="hb-num" id="hbv-h">15°</span>
+          </div>
+
+          <div class="hb-row">
+            <span class="hb-lbl">S</span>
+            <div class="hb-track" id="hbtr-s">
+              <div class="hb-fill" id="hbf-s"></div>
+              <div class="hb-thumb" id="hbth-s"></div>
+            </div>
+            <span class="hb-num" id="hbv-s">100%</span>
+          </div>
+
+          <div class="hb-row">
+            <span class="hb-lbl" id="hb-lv-lbl">L</span>
+            <div class="hb-track" id="hbtr-lv">
+              <div class="hb-fill" id="hbf-lv"></div>
+              <div class="hb-thumb" id="hbth-lv"></div>
+            </div>
+            <span class="hb-num" id="hbv-lv">60%</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Panel: Análisis dinámico -->
+      <div class="panel">
+        <div class="panel-ttl">Análisis</div>
+        <div class="analysis" id="analysis">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+    </aside><!-- /col-right -->
+  </div><!-- /lab -->
+</div><!-- /app -->
+
+<!-- ═══════════════════════════════════════════
+     SECCIONES DE TEORÍA — bajo el fold
+═══════════════════════════════════════════ -->
+<div class="theory-scroll-cue">
+  <div class="tsc-inner">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Teoría formal</span>
+  </div>
+</div>
+
+<div class="theory-wrapper">
+
+  <section id="theory-rgb" class="theory-section">
+    <div class="theory-inner">
+      <div class="th-header">
+        <a href="#app" class="back-link">↑ Laboratorio</a>
+        <span class="th-badge model-badge">Modelo</span>
+        <h2>RGB — Intensidades de Luz Aditiva</h2>
+        <p class="th-sub">Tres fuentes de luz que se suman. La base de todo.</p>
+      </div>
+      <div class="th-grid">
+        <div class="th-content">
+          <h3>Modelo aditivo</h3>
+          <p>RGB representa el color como la <strong>suma de tres intensidades de luz</strong>: Rojo, Verde y Azul. A mayor valor, más luz. Suma máxima = blanco.</p>
+          <div class="edu-note">
+            <strong>¿Por qué 0–255?</strong> Cada canal ocupa 1 byte = 8 bits = 2⁸ = 256 estados (0..255). Tres canales = 24 bits = 16&thinsp;777&thinsp;216 colores.
+          </div>
+          <h3>Mezcla aditiva</h3>
+          <div class="rgb-mix-grid">
+            <div class="mix-cell" style="background:#f00">R</div>
+            <div class="mix-cell" style="background:#0f0;color:#000">G</div>
+            <div class="mix-cell" style="background:#00f">B</div>
+            <div class="mix-cell" style="background:#ff0;color:#000">R+G<br><small>Amarillo</small></div>
+            <div class="mix-cell" style="background:#f0f">R+B<br><small>Magenta</small></div>
+            <div class="mix-cell" style="background:#0ff;color:#000">G+B<br><small>Cian</small></div>
+          </div>
+        </div>
+        <div class="th-formula">
+          <div class="formula-block"><pre>R ∈ [0, 255]  (8 bits)
+G ∈ [0, 255]  (8 bits)
+B ∈ [0, 255]  (8 bits)
+
+Normalizado:
+  R' = R / 255 ∈ [0, 1]
+  G' = G / 255 ∈ [0, 1]
+  B' = B / 255 ∈ [0, 1]
+
+Vértices del cubo RGB:
+  (0,0,0)→ Negro
+  (1,1,1)→ Blanco
+  (1,0,0)→ Rojo
+  (0,1,0)→ Verde
+  (0,0,1)→ Azul
+  (1,1,0)→ Amarillo
+  (1,0,1)→ Magenta
+  (0,1,1)→ Cian</pre></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory-hex" class="theory-section theory-alt">
+    <div class="theory-inner">
+      <div class="th-header">
+        <a href="#app" class="back-link">↑ Laboratorio</a>
+        <span class="th-badge notation-badge">Notación</span>
+        <h2>HEX — Notación Hexadecimal de RGB</h2>
+        <p class="th-sub">No es un modelo distinto. Es RGB escrito en base 16.</p>
+      </div>
+      <div class="th-grid">
+        <div class="th-content">
+          <h3>Sistema hexadecimal</h3>
+          <p>Base 16: dígitos <code>0–9, A–F</code>. Dos dígitos hex = 1 byte (16² = 256 valores). Perfecto para representar cada canal RGB.</p>
+          <div class="edu-note"><strong>#RRGGBB = rgb(R, G, B)</strong> — idénticos. HEX no añade información; sólo compacta la representación.</div>
+          <div class="hex-diagram">
+            <div class="hex-part" style="background:#ff5b6e22;border-color:#ff5b6e">#<span style="color:#ff5b6e">RR</span></div>
+            <div class="hex-part" style="background:#4dff8f22;border-color:#4dff8f"><span style="color:#4dff8f">GG</span></div>
+            <div class="hex-part" style="background:#5b8fff22;border-color:#5b8fff"><span style="color:#5b8fff">BB</span></div>
+          </div>
+        </div>
+        <div class="th-formula">
+          <div class="formula-block"><pre>DEC → HEX:
+  n = q·16 + r
+  → q = primer dígito
+  → r = segundo dígito
+
+Ejemplos:
+    0 → 00
+   64 → 40
+  128 → 80
+  192 → C0
+  255 → FF  (15·16 + 15)
+
+HEX → DEC:
+  FF = 15·16 + 15 = 255
+  80 = 8·16 + 0 = 128
+  A3 = 10·16 + 3 = 163</pre></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory-hsl" class="theory-section">
+    <div class="theory-inner">
+      <div class="th-header">
+        <a href="#app" class="back-link">↑ Laboratorio</a>
+        <span class="th-badge geo-badge">Geometría</span>
+        <h2>HSL — Doble Cono Bicónico</h2>
+        <p class="th-sub">Hue · Saturation · Lightness en coordenadas cilíndricas</p>
+      </div>
+      <div class="th-grid">
+        <div class="th-content">
+          <h3>Geometría formal</h3>
+          <p>HSL usa coordenadas cilíndricas formando un <strong>bicono</strong>: dos conos unidos en el ecuador (L = 50%).</p>
+          <div class="edu-note hsl-note"><strong>Eje vertical = Lightness</strong><br>L=0% → negro · L=50% → colores puros · L=100% → blanco<br>Radio: <code>r(L) = 1 − |2L − 1|</code></div>
+          <div class="edu-note hsl-note"><strong>Ángulo = Hue</strong><br>0°=R · 60°=Y · 120°=G · 180°=C · 240°=B · 300°=M</div>
+          <div class="edu-note hsl-note"><strong>Radio = Saturation</strong><br>S=0% → eje (gris) · S=100% → borde (color puro)</div>
+          <div class="warn-note">⚠ El eje vertical NO es color. Los polos son siempre blanco/negro.</div>
+        </div>
+        <div class="th-formula">
+          <div class="formula-block"><pre>RGB → HSL
+─────────────────────
+R'=R/255  G'=G/255  B'=B/255
+max=max(R',G',B')
+min=min(R',G',B')
+Δ = max − min
+
+L = (max + min) / 2
+
+S = 0              si Δ=0
+  = Δ/(1−|2L−1|)  si Δ≠0
+
+H = 60·((G'−B')/Δ mod 6)  si max=R'
+  = 60·((B'−R')/Δ + 2)    si max=G'
+  = 60·((R'−G')/Δ + 4)    si max=B'
+
+HSL → RGB
+─────────────────────
+C = (1−|2L−1|)·S
+X = C·(1−|(H/60) mod 2−1|)
+m = L − C/2
+(R,G,B) = (R'+m, G'+m, B'+m)·255</pre></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory-hsv" class="theory-section theory-alt">
+    <div class="theory-inner">
+      <div class="th-header">
+        <a href="#app" class="back-link">↑ Laboratorio</a>
+        <span class="th-badge geo-badge">Geometría</span>
+        <h2>HSV — Cono Simple</h2>
+        <p class="th-sub">Hue · Saturation · Value — el modelo natural de los selectores</p>
+      </div>
+      <div class="th-grid">
+        <div class="th-content">
+          <h3>Geometría formal</h3>
+          <p>HSV (también HSB) tiene forma de <strong>cono simple</strong>. La punta inferior es negro (V=0). El disco superior muestra colores de máximo brillo.</p>
+          <div class="edu-note hsv-note"><strong>Punta: V=0% → Negro</strong></div>
+          <div class="edu-note hsv-note"><strong>Disco superior (V=100%)</strong><br>Centro S=0% → blanco · Borde S=100% → color puro</div>
+          <div class="compare-table">
+            <div class="cmp-head"><span class="acc-hsl">HSL</span> vs <span class="acc-hsv">HSV</span></div>
+            <div class="cmp-row"><span>Forma</span><span>Bicono</span><span>Cono</span></div>
+            <div class="cmp-row"><span>Tope</span><span>Blanco</span><span>Colores max</span></div>
+            <div class="cmp-row"><span>Color puro</span><span>L=50%,S=100%</span><span>V=100%,S=100%</span></div>
+          </div>
+        </div>
+        <div class="th-formula">
+          <div class="formula-block"><pre>RGB → HSV
+─────────────────────
+R'=R/255  G'=G/255  B'=B/255
+max=max(R',G',B')
+Δ = max − min
+
+V = max
+
+S = 0      si max=0
+  = Δ/max  si max≠0
+
+H = (igual que HSL)
+
+Radio del cono:
+  r(V,S) = V · S
+  → V=0: r=0 (punta, negro)
+  → V=1,S=0: r=0 (blanco)
+  → V=1,S=1: r=1 (puro)</pre></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="theory-conv" class="theory-section">
+    <div class="theory-inner">
+      <div class="th-header">
+        <a href="#app" class="back-link">↑ Laboratorio</a>
+        <span class="th-badge conv-badge">Matemática</span>
+        <h2>Conversiones — Pasos para el color actual</h2>
+        <p class="th-sub">Fórmulas aplicadas al color seleccionado en el laboratorio</p>
+      </div>
+      <div id="conversion-steps" class="conv-steps">
+        <p style="color:var(--t3)">Selecciona un color en el laboratorio y vuelve aquí.</p>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /theory-wrapper -->
+
+<script src="js/colorMath.js"></script>
+<script src="js/hueWheel.js"></script>
+<script src="js/topView.js"></script>
+<script src="js/sideView.js"></script>
+<script src="js/hslModel.js"></script>
+<script src="js/hsvModel.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
