@@ -588,7 +588,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCopyRows();
   init3DModels();
   initTopView();
-  initSideView();
   initResizeObserver();
   initKeyboardControls();
 

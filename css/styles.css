@@ -154,7 +154,7 @@ a      { color: inherit; text-decoration: none; }
 /* ── 3-column lab ───────────────────────────── */
 .lab {
   display: grid;
-  grid-template-columns: 268px 1fr 232px;
+  grid-template-columns: 320px 1fr 290px;
   overflow: hidden;
   min-height: 0;
 }
@@ -173,7 +173,7 @@ a      { color: inherit; text-decoration: none; }
 
 /* Swatch */
 .swatch {
-  height: 80px;
+  height: 92px;
   border-radius: 10px;
   position: relative;
   flex-shrink: 0;
@@ -183,9 +183,9 @@ a      { color: inherit; text-decoration: none; }
 
 .sw-hex {
   position: absolute;
-  bottom: 10px; left: 12px;
+  bottom: 11px; left: 13px;
   font-family: var(--mono);
-  font-size: .95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: .05em;
   text-shadow: 0 1px 4px rgba(0,0,0,.5);
@@ -193,8 +193,8 @@ a      { color: inherit; text-decoration: none; }
 
 .sw-family {
   position: absolute;
-  bottom: 10px; right: 12px;
-  font-size: .72rem;
+  bottom: 13px; right: 13px;
+  font-size: .8rem;
   font-weight: 500;
   text-shadow: 0 1px 4px rgba(0,0,0,.5);
   opacity: .85;
@@ -236,9 +236,9 @@ a      { color: inherit; text-decoration: none; }
 
 .sl-ch {
   font-family: var(--mono);
-  font-size: .68rem;
+  font-size: .76rem;
   font-weight: 700;
-  width: 12px;
+  width: 13px;
   flex-shrink: 0;
 }
 .sl-ch.r { color: #ff5b6e; }
@@ -272,14 +272,14 @@ input[type="range"]::-webkit-slider-thumb:hover {
 input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; }
 
 .sl-num {
-  width: 38px;
+  width: 42px;
   font-family: var(--mono);
-  font-size: .7rem;
+  font-size: .78rem;
   background: var(--bg2);
   border: 1px solid var(--bd);
   border-radius: 4px;
   color: var(--t1);
-  padding: .2rem .3rem;
+  padding: .22rem .35rem;
   text-align: right;
   flex-shrink: 0;
 }
@@ -429,6 +429,49 @@ kbd {
 }
 .hsl-mini b { color: var(--t2); font-family: var(--mono); font-weight: 500; }
 
+/* Author credit */
+.author-credit {
+  margin-top: auto;
+  padding-top: .75rem;
+  border-top: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  flex-shrink: 0;
+}
+
+.author-label {
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+.author-name {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--t2);
+}
+
+.author-links {
+  display: flex;
+  gap: .65rem;
+  flex-wrap: wrap;
+}
+
+.author-links a {
+  display: flex;
+  align-items: center;
+  gap: .28rem;
+  font-size: .68rem;
+  font-family: var(--mono);
+  color: var(--t3);
+  transition: color .15s;
+  text-decoration: none;
+}
+
+.author-links a:hover { color: var(--accent); }
+
 /* ── Right column ─────────────────────────────── */
 .col-right {
   display: flex;
@@ -451,12 +494,12 @@ kbd {
 }
 
 .panel-ttl {
-  font-size: .65rem;
+  font-size: .72rem;
   font-weight: 600;
   letter-spacing: .09em;
   text-transform: uppercase;
   color: var(--t3);
-  margin-bottom: .6rem;
+  margin-bottom: .65rem;
 }
 
 /* Representations table */
@@ -484,17 +527,17 @@ kbd {
 
 .rk {
   font-family: var(--mono);
-  font-size: .65rem;
+  font-size: .72rem;
   letter-spacing: .06em;
   color: var(--t3);
   text-transform: uppercase;
-  width: 30px;
+  width: 34px;
   flex-shrink: 0;
 }
 
 .rv {
   font-family: var(--mono);
-  font-size: .88rem;
+  font-size: .95rem;
   font-weight: 500;
   color: var(--t1);
   flex: 1;
@@ -506,7 +549,7 @@ kbd {
 }
 
 .ri {
-  font-size: .7rem;
+  font-size: .75rem;
   color: var(--t4);
   flex-shrink: 0;
   transition: color .15s;
@@ -530,7 +573,7 @@ kbd {
 }
 
 .fam-txt {
-  font-size: .76rem;
+  font-size: .85rem;
   color: var(--t2);
   line-height: 1.3;
 }
@@ -550,9 +593,9 @@ kbd {
 
 .hb-lbl {
   font-family: var(--mono);
-  font-size: .62rem;
+  font-size: .72rem;
   color: var(--t3);
-  width: 10px;
+  width: 12px;
   flex-shrink: 0;
 }
 
@@ -595,10 +638,10 @@ kbd {
 
 .hb-num {
   font-family: var(--mono);
-  font-size: .78rem;
+  font-size: .88rem;
   font-weight: 500;
   color: var(--t1);
-  width: 38px;
+  width: 42px;
   text-align: right;
   flex-shrink: 0;
 }
@@ -611,9 +654,9 @@ kbd {
 }
 
 .analysis-line {
-  font-size: .8rem;
+  font-size: .88rem;
   color: var(--t2);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .analysis-line strong { color: var(--t1); font-weight: 600; }
