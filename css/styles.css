@@ -493,12 +493,8 @@ kbd {
   background: var(--bg3);
   border: 1px solid var(--bd);
   border-radius: 6px;
-  cursor: pointer;
-  transition: border-color .15s;
-  user-select: none;
 }
-.repr-row:hover { border-color: var(--bd2); }
-.repr-row.copied { border-color: var(--success); }
+.repr-row { cursor: default; }
 
 .rk {
   font-family: var(--mono);
@@ -522,14 +518,6 @@ kbd {
   min-width: 0;
 }
 
-.ri {
-  font-size: .75rem;
-  color: var(--t4);
-  flex-shrink: 0;
-  transition: color .15s;
-}
-.repr-row:hover .ri { color: var(--accent); }
-.repr-row.copied .ri { color: var(--success); }
 
 /* Color family chip */
 .fam-chip {

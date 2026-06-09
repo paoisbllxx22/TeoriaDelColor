@@ -380,21 +380,6 @@ function initLVSlider() {
   });
 }
 
-function initCopyRows() {
-  document.querySelectorAll('.repr-row').forEach(row => {
-    row.addEventListener('click', () => {
-      const valEl = document.getElementById(row.dataset.copyId);
-      if (!valEl) return;
-      navigator.clipboard.writeText(valEl.textContent.trim()).then(() => {
-        const icon = row.querySelector('.ri');
-        const orig = icon.textContent;
-        row.classList.add('copied');
-        icon.textContent = '✓';
-        setTimeout(() => { row.classList.remove('copied'); icon.textContent = orig; }, 1200);
-      });
-    });
-  });
-}
 
 function init3DModels() {
   if (typeof HSLModel !== 'undefined')
@@ -568,7 +553,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHueWheel();
   initRgbSliders();
   initLVSlider();
-  initCopyRows();
   init3DModels();
   initTopView();
   initResizeObserver();
