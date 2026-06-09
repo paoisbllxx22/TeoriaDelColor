@@ -9,6 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/theory.css" />
 </head>
 <body class="theme-dark">
 
@@ -248,207 +249,724 @@
       <path d="M7 2v10M3 8l4 4 4-4" stroke="currentColor" stroke-width="1.5"
         stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    <span>Teoría formal</span>
+    <span>Teoría del color</span>
   </div>
 </div>
 
-<div class="theory-wrapper">
+<div class="edu-section" id="edu-anchor">
 
-  <section id="theory-rgb" class="theory-section">
-    <div class="theory-inner">
-      <div class="th-header">
-        <a href="#app" class="back-link">↑ Laboratorio</a>
-        <span class="th-badge model-badge">Modelo</span>
-        <h2>RGB — Intensidades de Luz Aditiva</h2>
-        <p class="th-sub">Tres fuentes de luz que se suman. La base de todo.</p>
-      </div>
-      <div class="th-grid">
-        <div class="th-content">
-          <h3>Modelo aditivo</h3>
-          <p>RGB representa el color como la <strong>suma de tres intensidades de luz</strong>: Rojo, Verde y Azul. A mayor valor, más luz. Suma máxima = blanco.</p>
-          <div class="edu-note">
-            <strong>¿Por qué 0–255?</strong> Cada canal ocupa 1 byte = 8 bits = 2⁸ = 256 estados (0..255). Tres canales = 24 bits = 16&thinsp;777&thinsp;216 colores.
-          </div>
-          <h3>Mezcla aditiva</h3>
-          <div class="rgb-mix-grid">
-            <div class="mix-cell" style="background:#f00">R</div>
-            <div class="mix-cell" style="background:#0f0;color:#000">G</div>
-            <div class="mix-cell" style="background:#00f">B</div>
-            <div class="mix-cell" style="background:#ff0;color:#000">R+G<br><small>Amarillo</small></div>
-            <div class="mix-cell" style="background:#f0f">R+B<br><small>Magenta</small></div>
-            <div class="mix-cell" style="background:#0ff;color:#000">G+B<br><small>Cian</small></div>
-          </div>
-        </div>
-        <div class="th-formula">
-          <div class="formula-block"><pre>R ∈ [0, 255]  (8 bits)
-G ∈ [0, 255]  (8 bits)
-B ∈ [0, 255]  (8 bits)
+  <!-- ── Navegación de capítulos ─────────────── -->
+  <div class="edu-nav-wrap">
+    <nav class="edu-nav" role="tablist">
+      <button class="edu-pill active" data-ch="01" role="tab">01 · Los colores no existen</button>
+      <button class="edu-pill" data-ch="02" role="tab">02 · El ojo humano</button>
+      <button class="edu-pill" data-ch="03" role="tab">03 · RGB y los píxeles</button>
+      <button class="edu-pill" data-ch="04" role="tab">04 · CMYK y la tinta</button>
+      <button class="edu-pill" data-ch="05" role="tab">05 · HSL y HSV</button>
+      <button class="edu-pill" data-ch="06" role="tab">06 · Geometría del color</button>
+    </nav>
+  </div>
 
-Normalizado:
-  R' = R / 255 ∈ [0, 1]
-  G' = G / 255 ∈ [0, 1]
-  B' = B / 255 ∈ [0, 1]
-
-Vértices del cubo RGB:
-  (0,0,0)→ Negro
-  (1,1,1)→ Blanco
-  (1,0,0)→ Rojo
-  (0,1,0)→ Verde
-  (0,0,1)→ Azul
-  (1,1,0)→ Amarillo
-  (1,0,1)→ Magenta
-  (0,1,1)→ Cian</pre></div>
-        </div>
-      </div>
+  <!-- ══════════ CAPÍTULO 01 ══════════ -->
+  <div class="edu-chapter active" id="ch-01">
+    <div class="edu-ch-header">
+      <div class="edu-eyebrow">Capítulo 01</div>
+      <h2 class="edu-ch-title">"Los colores no existen"</h2>
+      <p class="edu-ch-concept">El color no es una propiedad física de los objetos. Es la interpretación que hace el cerebro de la luz reflejada. Sin un observador biológico, no hay color.</p>
     </div>
-  </section>
+    <div class="edu-body">
 
-  <section id="theory-hex" class="theory-section theory-alt">
-    <div class="theory-inner">
-      <div class="th-header">
-        <a href="#app" class="back-link">↑ Laboratorio</a>
-        <span class="th-badge notation-badge">Notación</span>
-        <h2>HEX — Notación Hexadecimal de RGB</h2>
-        <p class="th-sub">No es un modelo distinto. Es RGB escrito en base 16.</p>
+      <div class="edu-block">
+        <div class="edu-block-ttl">El espectro visible</div>
+        <div class="edu-prose">
+          <p>La luz es <strong>radiación electromagnética</strong>. El ojo humano solo percibe una franja muy estrecha del espectro total: desde aproximadamente <strong>380 nm</strong> (violeta) hasta <strong>700 nm</strong> (rojo). Fuera de esos límites existen ultravioleta, rayos X, infrarrojo y microondas — todos invisibles para nosotros.</p>
+        </div>
+        <div class="edu-diagram" style="margin-top:1.2rem">
+          <svg viewBox="0 0 520 52" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sp01" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%"   stop-color="#7B2FBE"/>
+                <stop offset="14%"  stop-color="#4455DD"/>
+                <stop offset="28%"  stop-color="#4488FF"/>
+                <stop offset="42%"  stop-color="#44BB44"/>
+                <stop offset="56%"  stop-color="#AACC22"/>
+                <stop offset="70%"  stop-color="#FFCC00"/>
+                <stop offset="84%"  stop-color="#FF7700"/>
+                <stop offset="100%" stop-color="#CC2200"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="520" height="30" rx="5" fill="url(#sp01)"/>
+            <text x="2"   y="48" font-size="10" fill="#515155" font-family="JetBrains Mono,monospace">380 nm</text>
+            <text x="173" y="48" font-size="10" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="middle">487 nm</text>
+            <text x="346" y="48" font-size="10" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="middle">594 nm</text>
+            <text x="518" y="48" font-size="10" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="end">700 nm</text>
+          </svg>
+          <div class="edu-diagram-cap">Espectro visible — la franja del espectro electromagnético que el ojo humano puede detectar</div>
+        </div>
       </div>
-      <div class="th-grid">
-        <div class="th-content">
-          <h3>Sistema hexadecimal</h3>
-          <p>Base 16: dígitos <code>0–9, A–F</code>. Dos dígitos hex = 1 byte (16² = 256 valores). Perfecto para representar cada canal RGB.</p>
-          <div class="edu-note"><strong>#RRGGBB = rgb(R, G, B)</strong> — idénticos. HEX no añade información; sólo compacta la representación.</div>
-          <div class="hex-diagram">
-            <div class="hex-part" style="background:#ff5b6e22;border-color:#ff5b6e">#<span style="color:#ff5b6e">RR</span></div>
-            <div class="hex-part" style="background:#4dff8f22;border-color:#4dff8f"><span style="color:#4dff8f">GG</span></div>
-            <div class="hex-part" style="background:#5b8fff22;border-color:#5b8fff"><span style="color:#5b8fff">BB</span></div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Por qué "vemos color" en los objetos</div>
+        <div class="edu-cols-6-4">
+          <div class="edu-prose">
+            <h3>La luz blanca contiene todo</h3>
+            <p>La luz solar (blanca) contiene todas las longitudes de onda del espectro visible simultáneamente. Cuando esa luz ilumina un objeto, el material <strong>absorbe selectivamente</strong> algunas longitudes de onda y <strong>refleja</strong> otras hacia el ojo.</p>
+            <h3>Ejemplo concreto: la manzana roja</h3>
+            <p>El pigmento de una manzana roja absorbe casi toda la luz verde (~520 nm) y azul (~450 nm). Solo deja escapar longitudes de onda alrededor de <strong>650 nm</strong>. Esos fotones llegan al ojo y el cerebro los interpreta como "rojo".</p>
+            <div class="edu-note"><strong>La manzana no "es" roja.</strong> El rojo es la interpretación neurológica de ~650 nm impactando los fotorreceptores del ojo bajo iluminación estándar. Un perro o una abeja perciben esa misma manzana de forma completamente distinta.</div>
+            <h3>Negro y blanco</h3>
+            <p><strong>Negro</strong> no es un color: es la ausencia total de fotones. Ninguna luz llega al ojo. <strong>Blanco</strong> es reflexión total y uniforme de todas las longitudes de onda visibles. El papel blanco refleja entre el 85 y 95% de la luz incidente.</p>
+          </div>
+          <div class="edu-diagram">
+            <svg viewBox="0 0 220 255" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="34" cy="38" r="20" fill="#FFCC00" opacity="0.9"/>
+              <line x1="34" y1="13" x2="34" y2="6"  stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
+              <line x1="34" y1="63" x2="34" y2="70" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
+              <line x1="9"  y1="38" x2="2"  y2="38" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
+              <line x1="59" y1="38" x2="66" y2="38" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
+              <line x1="15" y1="19" x2="10" y2="14" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
+              <line x1="53" y1="57" x2="58" y2="62" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
+              <text x="34" y="92" font-size="9" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">Luz blanca</text>
+              <text x="34" y="103" font-size="9" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">(todas las λ)</text>
+              <line x1="34" y1="58" x2="34" y2="120" stroke="#e8e8e8" stroke-width="1.5" opacity="0.3"/>
+              <polygon points="30,116 38,116 34,124" fill="#e8e8e8" opacity="0.3"/>
+              <rect x="8" y="126" width="52" height="38" rx="8" fill="#1d1d21" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+              <text x="34" y="143" font-size="10" fill="#e8e8e8" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">Objeto</text>
+              <text x="34" y="157" font-size="8"  fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">absorbe G+B</text>
+              <line x1="8"  y1="143" x2="-8" y2="143" stroke="#44BB44" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,2"/>
+              <line x1="8"  y1="154" x2="-8" y2="162" stroke="#4488FF" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,2"/>
+              <text x="-10" y="141" font-size="7" fill="#44BB44" font-family="monospace" opacity="0.7" text-anchor="end">520nm ✗</text>
+              <text x="-10" y="164" font-size="7" fill="#4488FF" font-family="monospace" opacity="0.7" text-anchor="end">450nm ✗</text>
+              <line x1="60" y1="145" x2="118" y2="145" stroke="#CC2200" stroke-width="2"/>
+              <polygon points="113,141 121,145 113,149" fill="#CC2200"/>
+              <text x="90" y="137" font-size="8" fill="#CC2200" font-family="monospace" text-anchor="middle">650 nm</text>
+              <text x="90" y="160" font-size="8" fill="#515155" font-family="monospace" text-anchor="middle">refleja R</text>
+              <ellipse cx="162" cy="145" rx="27" ry="17" fill="#1d1d21" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+              <circle  cx="162" cy="145" r="8"  fill="#242428"/>
+              <circle  cx="162" cy="145" r="5"  fill="#2d4080"/>
+              <circle  cx="164" cy="142" r="1.5" fill="rgba(255,255,255,0.7)"/>
+              <text x="162" y="178" font-size="9" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">Ojo → Cerebro</text>
+              <text x="162" y="190" font-size="9" fill="#CC2200" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">"Rojo"</text>
+              <text x="110" y="222" font-size="8" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">La manzana no "es" roja:</text>
+              <text x="110" y="234" font-size="8" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">es interpretación del cerebro</text>
+            </svg>
+            <div class="edu-diagram-cap">Proceso de percepción: absorción y reflexión de longitudes de onda</div>
           </div>
         </div>
-        <div class="th-formula">
-          <div class="formula-block"><pre>DEC → HEX:
-  n = q·16 + r
-  → q = primer dígito
-  → r = segundo dígito
-
-Ejemplos:
-    0 → 00
-   64 → 40
-  128 → 80
-  192 → C0
-  255 → FF  (15·16 + 15)
-
-HEX → DEC:
-  FF = 15·16 + 15 = 255
-  80 = 8·16 + 0 = 128
-  A3 = 10·16 + 3 = 163</pre></div>
-        </div>
       </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Datos clave</div>
+        <div class="edu-data-row" style="border-top:1px solid var(--ebd)"><span class="edu-data-key">Espectro visible</span><span class="edu-data-val">~380–700 nm. Solo el 0.0035% del espectro electromagnético total. El resto es invisible para el ojo humano.</span></div>
+        <div class="edu-data-row"><span class="edu-data-key">Negro</span><span class="edu-data-val">Ausencia total de fotones llegando al ojo. No es un pigmento, no tiene longitud de onda propia.</span></div>
+        <div class="edu-data-row"><span class="edu-data-key">Blanco</span><span class="edu-data-val">Reflexión uniforme de todas las λ visibles. El papel blanco refleja ~85–95% de la luz incidente.</span></div>
+        <div class="edu-data-row"><span class="edu-data-key">Manzana roja</span><span class="edu-data-val">Absorbe ~420–580 nm (azul y verde), refleja ~620–700 nm (rojo). El pigmento responsable es la antocianina.</span></div>
+      </div>
+
     </div>
-  </section>
+  </div><!-- /ch-01 -->
 
-  <section id="theory-hsl" class="theory-section">
-    <div class="theory-inner">
-      <div class="th-header">
-        <a href="#app" class="back-link">↑ Laboratorio</a>
-        <span class="th-badge geo-badge">Geometría</span>
-        <h2>HSL — Doble Cono Bicónico</h2>
-        <p class="th-sub">Hue · Saturation · Lightness en coordenadas cilíndricas</p>
-      </div>
-      <div class="th-grid">
-        <div class="th-content">
-          <h3>Geometría formal</h3>
-          <p>HSL usa coordenadas cilíndricas formando un <strong>bicono</strong>: dos conos unidos en el ecuador (L = 50%).</p>
-          <div class="edu-note hsl-note"><strong>Eje vertical = Lightness</strong><br>L=0% → negro · L=50% → colores puros · L=100% → blanco<br>Radio: <code>r(L) = 1 − |2L − 1|</code></div>
-          <div class="edu-note hsl-note"><strong>Ángulo = Hue</strong><br>0°=R · 60°=Y · 120°=G · 180°=C · 240°=B · 300°=M</div>
-          <div class="edu-note hsl-note"><strong>Radio = Saturation</strong><br>S=0% → eje (gris) · S=100% → borde (color puro)</div>
-          <div class="warn-note">⚠ El eje vertical NO es color. Los polos son siempre blanco/negro.</div>
+  <!-- ══════════ CAPÍTULO 02 ══════════ -->
+  <div class="edu-chapter" id="ch-02">
+    <div class="edu-ch-header">
+      <div class="edu-eyebrow">Capítulo 02</div>
+      <h2 class="edu-ch-title">El ojo humano y los fotorreceptores</h2>
+      <p class="edu-ch-concept">La retina contiene dos tipos de células detectoras: bastones (brillo, sin color) y conos (color). Con solo tres tipos de conos, el cerebro construye millones de colores distintos detectando proporciones de señal.</p>
+    </div>
+    <div class="edu-body">
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Bastones y conos</div>
+        <div class="edu-cols">
+          <div class="edu-prose">
+            <h3>Bastones — ~120 millones, un solo tipo</h3>
+            <p>Los bastones detectan intensidad luminosa pero <strong>no distinguen longitudes de onda</strong>. Son extremadamente sensibles (responden a un solo fotón en condiciones óptimas). Por eso en la oscuridad vemos en escala de grises: solo los bastones trabajan.</p>
+            <div class="edu-note green"><strong>Visión escotópica</strong> (poca luz): solo bastones. Sin discriminación de color, alta sensibilidad al movimiento. La fóvea (donde se concentran los conos) tiene relativamente pocos bastones — por eso de noche vemos mejor mirando de reojo.</div>
+            <h3>Conos — ~6 millones, tres variantes</h3>
+            <p>Los conos se concentran en la fóvea. Sus tres variantes difieren en qué longitud de onda las activa más:</p>
+            <div class="edu-data-row" style="border-top:1px solid var(--ebd)"><span class="edu-data-key" style="color:#6688ff;font-size:.8rem">Conos S (Short)</span><span class="edu-data-val">Pico ~420 nm (azul-violeta). Solo el <strong>2%</strong> de los conos. Escasos pero esenciales.</span></div>
+            <div class="edu-data-row"><span class="edu-data-key" style="color:#44cc44;font-size:.8rem">Conos M (Medium)</span><span class="edu-data-val">Pico ~530 nm (verde). Aproximadamente el <strong>32%</strong> del total.</span></div>
+            <div class="edu-data-row"><span class="edu-data-key" style="color:#ff8866;font-size:.8rem">Conos L (Long)</span><span class="edu-data-val">Pico ~560 nm (rojo-naranja). Los más abundantes, ~<strong>64%</strong>. Solapan significativamente con M.</span></div>
+          </div>
+          <div class="edu-prose">
+            <h3>Millones de colores con 3 tipos</h3>
+            <p>El cerebro no detecta colores directamente. Recibe <strong>tres números</strong> (nivel de activación de S, M y L) y los interpreta como un color. Cada color es una "firma de activación" única.</p>
+            <div class="edu-note"><strong>El caso del amarillo (~580 nm):</strong> No existe un cono especializado para el amarillo. Pero a esa longitud de onda, L y M se activan casi por igual (y S casi nada). El cerebro interpreta esa proporción ~50:50 de L:M como amarillo. Por eso el amarillo parece tan brillante: activa los dos tipos de conos más abundantes al mismo tiempo.</div>
+            <h3>Daltonismo y tetracromacia</h3>
+            <p><strong>Daltonismo:</strong> ausencia o anomalía funcional en uno de los conos. La deuteranomalía (cono M alterado) afecta al ~8% de los hombres y ~0.5% de las mujeres. Dificulta distinguir rojo de verde.</p>
+            <p><strong>Tetracromacia:</strong> algunas personas tienen una variante adicional del gen del cono L, produciendo un cuarto tipo de cono. Les permite distinguir decenas de millones más de matices. Más frecuente en mujeres.</p>
+          </div>
         </div>
-        <div class="th-formula">
-          <div class="formula-block"><pre>RGB → HSL
-─────────────────────
-R'=R/255  G'=G/255  B'=B/255
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Curvas de sensibilidad espectral de los tres conos</div>
+        <div class="edu-diagram">
+          <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sp02bg" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%"   stop-color="#7B2FBE" stop-opacity="0.18"/>
+                <stop offset="14%"  stop-color="#4455DD" stop-opacity="0.18"/>
+                <stop offset="28%"  stop-color="#4488FF" stop-opacity="0.18"/>
+                <stop offset="42%"  stop-color="#44BB44" stop-opacity="0.18"/>
+                <stop offset="56%"  stop-color="#AACC22" stop-opacity="0.18"/>
+                <stop offset="70%"  stop-color="#FFCC00" stop-opacity="0.18"/>
+                <stop offset="84%"  stop-color="#FF7700" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#CC2200" stop-opacity="0.18"/>
+              </linearGradient>
+            </defs>
+            <rect x="40" y="10" width="460" height="175" rx="4" fill="url(#sp02bg)"/>
+            <line x1="40" y1="185" x2="500" y2="185" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <line x1="40" y1="97"  x2="500" y2="97"  stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="4,4"/>
+            <!-- S cone (blue, peak 420nm) -->
+            <path d="M40,122 C52,52 66,8 83,10 C98,10 112,30 126,75 C140,120 156,153 183,181 L500,185 L40,185 Z" fill="#4488FF" fill-opacity="0.10"/>
+            <path d="M40,122 C52,52 66,8 83,10 C98,10 112,30 126,75 C140,120 156,153 183,181" fill="none" stroke="#4488FF" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- M cone (green, peak 530nm) -->
+            <path d="M40,185 L98,183 C120,176 140,164 183,118 C210,80 235,25 257,10 C275,10 292,22 320,58 C350,96 384,131 412,161 C440,178 468,183 500,185 Z" fill="#44BB44" fill-opacity="0.10"/>
+            <path d="M40,185 L98,183 C120,176 140,164 183,118 C210,80 235,25 257,10 C275,10 292,22 320,58 C350,96 384,131 412,161 C440,178 468,183 500,185" fill="none" stroke="#44BB44" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- L cone (red, peak 560nm) -->
+            <path d="M40,185 L126,183 C160,176 183,154 226,80 C243,52 257,30 304,10 C322,10 340,24 366,46 C396,72 420,100 457,141 C476,159 490,171 500,176 L500,185 Z" fill="#ff8866" fill-opacity="0.10"/>
+            <path d="M40,185 L126,183 C160,176 183,154 226,80 C243,52 257,30 304,10 C322,10 340,24 366,46 C396,72 420,100 457,141 C476,159 490,171 500,176" fill="none" stroke="#ff8866" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Axis labels -->
+            <text x="40"  y="203" font-size="9" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="middle">380</text>
+            <text x="126" y="203" font-size="9" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="middle">440</text>
+            <text x="257" y="203" font-size="9" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="middle">530</text>
+            <text x="304" y="203" font-size="9" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="middle">560</text>
+            <text x="500" y="203" font-size="9" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="end">700 nm</text>
+            <text x="32"  y="13"  font-size="8" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="end">1.0</text>
+            <text x="32"  y="100" font-size="8" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="end">0.5</text>
+            <text x="32"  y="188" font-size="8" fill="#515155" font-family="JetBrains Mono,monospace" text-anchor="end">0</text>
+            <!-- Legend -->
+            <rect x="360" y="20" width="12" height="3" rx="1" fill="#4488FF"/>
+            <text x="377" y="24" font-size="9" fill="#4488FF" font-family="Inter,sans-serif">S — pico ~420 nm (2%)</text>
+            <rect x="360" y="35" width="12" height="3" rx="1" fill="#44BB44"/>
+            <text x="377" y="39" font-size="9" fill="#44BB44" font-family="Inter,sans-serif">M — pico ~530 nm (32%)</text>
+            <rect x="360" y="50" width="12" height="3" rx="1" fill="#ff8866"/>
+            <text x="377" y="54" font-size="9" fill="#ff8866" font-family="Inter,sans-serif">L — pico ~560 nm (64%)</text>
+          </svg>
+          <div class="edu-diagram-cap">Curvas de sensibilidad espectral de los tres tipos de conos (aproximación). El solapamiento de L y M en ~580nm genera la percepción del amarillo.</div>
+        </div>
+      </div>
+
+      <div class="edu-interactive">
+        <div class="edu-interactive-ttl">Simulador de activación de conos</div>
+        <div class="edu-cols">
+          <div>
+            <p style="font-size:.88rem;color:var(--et2);line-height:1.7;margin-bottom:1.2rem">Ajusta el nivel de activación de cada tipo de cono (0–255). El color que percibirías es la interpretación que el cerebro hace de esas tres señales. Prueba L=200, M=160, S=10 para obtener amarillo.</p>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-lc">L</span>
+              <input type="range" id="lms-l" class="edu-slider" min="0" max="255" value="200"/>
+              <span class="edu-sl-val" id="lms-lv">200</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-mc">M</span>
+              <input type="range" id="lms-m" class="edu-slider" min="0" max="255" value="160"/>
+              <span class="edu-sl-val" id="lms-mv">160</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-sc">S</span>
+              <input type="range" id="lms-s" class="edu-slider" min="0" max="255" value="10"/>
+              <span class="edu-sl-val" id="lms-sv">10</span>
+            </div>
+          </div>
+          <div>
+            <div class="edu-color-box" id="lms-preview"></div>
+            <div class="edu-color-lbl" id="lms-label" style="padding:.4rem 0"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /ch-02 -->
+
+  <!-- ══════════ CAPÍTULO 03 ══════════ -->
+  <div class="edu-chapter" id="ch-03">
+    <div class="edu-ch-header">
+      <div class="edu-eyebrow">Capítulo 03</div>
+      <h2 class="edu-ch-title">RGB y los píxeles</h2>
+      <p class="edu-ch-concept">RGB es el sistema que usan las pantallas para reproducir color. Es color aditivo: combina luz roja, verde y azul. Apagar todo es negro. Encender todo al máximo es blanco.</p>
+    </div>
+    <div class="edu-body">
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">A — Qué es un bit y un byte</div>
+        <div class="edu-cols-6-4">
+          <div class="edu-prose">
+            <h3>El bit: la unidad mínima de información digital</h3>
+            <p>Un <strong>bit</strong> solo puede tener dos estados: <code>0</code> o <code>1</code>. Es la unidad atómica de la información digital. Todo lo que existe en un ordenador —texto, imágenes, audio, vídeo— se reduce a secuencias de bits.</p>
+            <h3>Un byte: 8 bits agrupados = 256 valores</h3>
+            <p>Un <strong>byte</strong> agrupa 8 bits. Las combinaciones posibles son 2⁸ = <strong>256 valores distintos</strong> (de 0 a 255). Este rango es suficiente para el color: el ojo humano no discrimina diferencias de brillo entre dos valores consecutivos de un canal.</p>
+            <div class="edu-note"><strong>¿Por qué 256 niveles es suficiente?</strong> El ojo distingue aproximadamente 100 niveles de brillo en condiciones normales. 256 son más que suficientes para degradados suaves sin escalones ("banding") visibles.</div>
+            <h3>Representación binaria</h3>
+            <p>El número <strong>217</strong> en binario es <code>11011001</code>. Cada posición tiene un peso que es una potencia de 2:</p>
+            <div class="edu-formula" style="white-space:normal;line-height:2">128·<strong>1</strong> + 64·<strong>1</strong> + 32·<strong>0</strong> + 16·<strong>1</strong> + 8·<strong>1</strong> + 4·<strong>0</strong> + 2·<strong>0</strong> + 1·<strong>1</strong> = <strong>217</strong></div>
+          </div>
+          <div class="edu-interactive" style="background:var(--es2)">
+            <div class="edu-interactive-ttl">Calculadora de bits</div>
+            <p style="font-size:.78rem;color:var(--et3);margin-bottom:1rem;line-height:1.5">Haz clic en cada celda para activar (1) o desactivar (0) ese bit. El valor decimal se actualiza automáticamente.</p>
+            <div class="edu-bits">
+              <div class="edu-bit"><span class="edu-bit-weight">128</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">64</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">32</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">16</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">8</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">4</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">2</span><div class="edu-bit-cell">0</div></div>
+              <div class="edu-bit"><span class="edu-bit-weight">1</span><div class="edu-bit-cell">0</div></div>
+            </div>
+            <div class="edu-bit-decimal" id="bit-decimal">0</div>
+            <div style="font-size:.72rem;color:var(--et3);text-align:center;margin-top:.2rem">de 255 posibles</div>
+            <div class="edu-bit-bar-wrap">
+              <div class="edu-bit-bar" id="bit-bar" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">B — Composición de un píxel RGB</div>
+        <div class="edu-prose">
+          <p>Un píxel de color almacena <strong>3 canales</strong> (R, G, B), cada uno de 1 byte = 8 bits. Total: <strong>24 bits por píxel</strong>, lo que permite 256³ = <strong>16,777,216 colores</strong> distintos (~16.7 millones).</p>
+        </div>
+        <div class="edu-formula" style="margin-top:1rem">Píxel RGB de 24 bits:
+  R (8 bits) + G (8 bits) + B (8 bits) = 3 bytes = 24 bits
+
+Colores posibles:  256 × 256 × 256 = 16,777,216
+
+Imagen Full HD sin comprimir:
+  1920 × 1080 × 3 bytes = 6,220,800 bytes ≈ 6.2 MB
+
+Imagen 4K sin comprimir:
+  3840 × 2160 × 3 bytes ≈ 24.9 MB por fotograma
+
+Modo RGBA (con transparencia):
+  R + G + B + A = 4 bytes por píxel</div>
+        <div class="edu-note" style="margin-top:1rem"><strong>Por eso existen los formatos de compresión.</strong> JPEG aplica compresión con pérdida (descarta información imperceptible), reduciendo tamaños hasta 1/20. PNG usa compresión sin pérdida. Un vídeo 4K de 2 horas sin comprimir ocuparía cientos de terabytes.</div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">C — Color aditivo: mezclador RGB</div>
+        <div class="edu-cols">
+          <div class="edu-prose">
+            <h3>Las pantallas parten de negro y suman luz</h3>
+            <p>Cada subpíxel de una pantalla contiene tres LEDs (rojo, verde, azul). Cuando todos están apagados, el resultado es negro. Cuando todos están al máximo, el resultado es blanco.</p>
+            <div class="edu-mix-grid">
+              <div class="edu-mix-cell" style="background:#cc0000;color:#fff">R<br><small>255,0,0</small></div>
+              <div class="edu-mix-cell" style="background:#00aa00;color:#fff">G<br><small>0,255,0</small></div>
+              <div class="edu-mix-cell" style="background:#0044cc;color:#fff">B<br><small>0,0,255</small></div>
+              <div class="edu-mix-cell" style="background:#cccc00;color:#111">R+G<br><small>Amarillo</small></div>
+              <div class="edu-mix-cell" style="background:#cc00cc;color:#fff">R+B<br><small>Magenta</small></div>
+              <div class="edu-mix-cell" style="background:#009999;color:#fff">G+B<br><small>Cian</small></div>
+            </div>
+          </div>
+          <div class="edu-interactive" style="background:var(--es2)">
+            <div class="edu-interactive-ttl">Mezclador RGB</div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-r">R</span>
+              <input type="range" id="rgbm-r" class="edu-slider" min="0" max="255" value="255"/>
+              <span class="edu-sl-val" id="rgbm-rv">255</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-g">G</span>
+              <input type="range" id="rgbm-g" class="edu-slider" min="0" max="255" value="100"/>
+              <span class="edu-sl-val" id="rgbm-gv">100</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-b">B</span>
+              <input type="range" id="rgbm-b" class="edu-slider" min="0" max="255" value="50"/>
+              <span class="edu-sl-val" id="rgbm-bv">50</span>
+            </div>
+            <div class="edu-color-box" id="rgbm-preview"></div>
+            <div class="edu-color-val" id="rgbm-hex" style="font-size:.95rem;font-weight:600">#FF6432</div>
+            <div class="edu-color-val" id="rgbm-rgb" style="margin-top:.25rem">rgb(255, 100, 50)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /ch-03 -->
+
+  <!-- ══════════ CAPÍTULO 04 ══════════ -->
+  <div class="edu-chapter" id="ch-04">
+    <div class="edu-ch-header">
+      <div class="edu-eyebrow">Capítulo 04</div>
+      <h2 class="edu-ch-title">CMYK y la tinta</h2>
+      <p class="edu-ch-concept">La imprenta funciona al revés que las pantallas. Las tintas no emiten luz, la bloquean. Partimos de papel blanco y cada capa de tinta le quita longitudes de onda a esa reflexión.</p>
+    </div>
+    <div class="edu-body">
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">A — Color sustractivo</div>
+        <div class="edu-cols">
+          <div class="edu-prose">
+            <h3>La diferencia fundamental con las pantallas</h3>
+            <p>Las <strong>pantallas</strong> parten de negro (sin luz) y <strong>suman</strong> luz. La <strong>imprenta</strong> parte de blanco (toda la luz reflejada por el papel) y cada tinta <strong>resta</strong> longitudes de onda absorbiendo selectivamente.</p>
+            <h3>Las tintas primarias sustractivas</h3>
+            <p>Son complementarias a RGB: cada una absorbe exactamente uno de los tres primarios de luz:</p>
+            <div class="edu-data-row" style="border-top:1px solid var(--ebd)"><span class="edu-data-key" style="color:#00CCDD">Cian (C)</span><span class="edu-data-val">Absorbe el rojo (~650 nm). Deja pasar verde + azul.</span></div>
+            <div class="edu-data-row"><span class="edu-data-key" style="color:#EE44AA">Magenta (M)</span><span class="edu-data-val">Absorbe el verde (~530 nm). Deja pasar rojo + azul.</span></div>
+            <div class="edu-data-row"><span class="edu-data-key" style="color:#BBBB00">Amarillo (Y)</span><span class="edu-data-val">Absorbe el azul (~450 nm). Deja pasar rojo + verde.</span></div>
+            <div class="edu-note" style="margin-top:1rem">C + M + Y juntos absorben rojo, verde y azul → absorción total → <strong>negro teórico</strong>. En la práctica produce un marrón oscuro sucio porque las tintas reales no son espectralmente perfectas.</div>
+          </div>
+          <div>
+            <div class="edu-compare-panels">
+              <div class="edu-panel-add">
+                <div class="edu-panel-lbl">Aditivo — RGB</div>
+                <div class="edu-circle-wrap">
+                  <div class="edu-circ add cr"></div>
+                  <div class="edu-circ add cg"></div>
+                  <div class="edu-circ add cbl"></div>
+                </div>
+                <p style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:.8rem;text-align:center;line-height:1.5">Negro + luz = color<br>Todo al max = blanco</p>
+              </div>
+              <div class="edu-panel-sub">
+                <div class="edu-panel-lbl">Sustractivo — CMY</div>
+                <div class="edu-circle-wrap">
+                  <div class="edu-circ sub cc"></div>
+                  <div class="edu-circ sub cm"></div>
+                  <div class="edu-circ sub cy"></div>
+                </div>
+                <p style="font-size:.72rem;color:rgba(0,0,0,.35);margin-top:.8rem;text-align:center;line-height:1.5">Blanco − tinta = color<br>Todo al max = negro</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">B — Por qué existe la K (negro)</div>
+        <div class="edu-prose">
+          <h3>El problema con CMY</h3>
+          <p>En teoría, mezclar C+M+Y al 100% produce negro. En la práctica produce un <strong>marrón oscuro sucio</strong>: las tintas reales tienen reflexiones residuales no deseadas. Además, usar tres tintas costosas para zonas negras es ineficiente y moja demasiado el papel.</p>
+          <h3>Por qué K ("Key")</h3>
+          <p>La tinta negra pura produce negros más profundos y nítidos. El nombre "Key" viene del proceso histórico de la imprenta: la "plancha clave" (key plate) era la plancha negra que establecía los contornos y el texto, y alrededor de la cual se registraban las demás planchas de color.</p>
+          <h3>Pintar sobre negro vs sobre blanco</h3>
+          <p><strong>Acuarelas sobre papel blanco:</strong> la acuarela es transparente y se mezcla con la reflexión del papel → mecanismo sustractivo clásico. El resultado depende del papel.</p>
+          <p><strong>Pintura opaca blanca sobre tela negra:</strong> crea una nueva superficie reflectante → los colores parten de cero, no de blanco. Se comporta de forma aditiva desde el fondo blanco de la pintura.</p>
+          <p><strong>Acuarelas sobre papel negro:</strong> los pigmentos transparentes se combinan con la absorción del negro → el resultado siempre será muy oscuro, sin importar cuán brillante sea la acuarela.</p>
+        </div>
+      </div>
+
+      <div class="edu-interactive">
+        <div class="edu-interactive-ttl">Mezclador CMYK</div>
+        <div class="edu-cols">
+          <div>
+            <p style="font-size:.88rem;color:var(--et2);line-height:1.7;margin-bottom:1rem">Ajusta las tintas y observa el color resultante. La fórmula de conversión a RGB es:</p>
+            <div class="edu-formula" style="margin-bottom:1.2rem;font-size:.78rem">R = 255 × (1 − C) × (1 − K)
+G = 255 × (1 − M) × (1 − K)
+B = 255 × (1 − Y) × (1 − K)</div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-c">C</span>
+              <input type="range" id="cmyk-c" class="edu-slider" min="0" max="100" value="0"/>
+              <span class="edu-sl-val" id="cmyk-cv">0%</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-m">M</span>
+              <input type="range" id="cmyk-m" class="edu-slider" min="0" max="100" value="0"/>
+              <span class="edu-sl-val" id="cmyk-mv">0%</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-y">Y</span>
+              <input type="range" id="cmyk-y" class="edu-slider" min="0" max="100" value="0"/>
+              <span class="edu-sl-val" id="cmyk-yv">0%</span>
+            </div>
+            <div class="edu-sl-row">
+              <span class="edu-sl-lbl lbl-k">K</span>
+              <input type="range" id="cmyk-k" class="edu-slider" min="0" max="100" value="0"/>
+              <span class="edu-sl-val" id="cmyk-kv">0%</span>
+            </div>
+          </div>
+          <div>
+            <div class="edu-color-box" id="cmyk-preview" style="background:#fff;border-color:rgba(0,0,0,.15)"></div>
+            <div class="edu-color-val" id="cmyk-value" style="font-family:'JetBrains Mono',monospace">#FFFFFF&nbsp;&nbsp;&nbsp;rgb(255, 255, 255)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /ch-04 -->
+
+  <!-- ══════════ CAPÍTULO 05 ══════════ -->
+  <div class="edu-chapter" id="ch-05">
+    <div class="edu-ch-header">
+      <div class="edu-eyebrow">Capítulo 05</div>
+      <h2 class="edu-ch-title">HSL y HSV — para humanos</h2>
+      <p class="edu-ch-concept">RGB es perfecto para las máquinas, pero poco intuitivo para las personas. HSL y HSV reorganizan la misma información de color en tres ejes que se corresponden con cómo pensamos y hablamos del color.</p>
+    </div>
+    <div class="edu-body">
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">A — Los tres ejes de HSL y HSV</div>
+        <div class="edu-cols">
+          <div>
+            <div class="edu-data-row" style="border-top:1px solid var(--ebd)">
+              <span class="edu-data-key" style="color:var(--ea)">H — Hue (Matiz)</span>
+              <span class="edu-data-val">El "color en sí", como ángulo de 0° a 360° en la rueda cromática.<br>0°=Rojo · 60°=Amarillo · 120°=Verde · 180°=Cian · 240°=Azul · 300°=Magenta</span>
+            </div>
+            <div class="edu-data-row">
+              <span class="edu-data-key" style="color:#AACC22">S — Saturation</span>
+              <span class="edu-data-val">Cuán "puro" es el color. 0% = gris neutro. 100% = color completamente saturado, sin dilución.</span>
+            </div>
+            <div class="edu-data-row">
+              <span class="edu-data-key" style="color:#FFCC00">L — Lightness (HSL)</span>
+              <span class="edu-data-val">0% = negro · 50% = color puro con máxima viveza · 100% = blanco. División simétrica negro↔color↔blanco.</span>
+            </div>
+            <div class="edu-data-row">
+              <span class="edu-data-key" style="color:#FF7700">V — Value (HSV)</span>
+              <span class="edu-data-val">0% = negro · 100% = color más brillante posible. V=100%,S=0% es blanco. V=100%,S=100% es el color puro.</span>
+            </div>
+          </div>
+          <div class="edu-prose">
+            <h3>Por qué el matiz es un ángulo (0°–360°)</h3>
+            <p>Los colores forman un <strong>círculo continuo</strong>, no una línea. El rojo en 0° y en 360° son el mismo. Esta geometría permite calcular armonías automáticamente:</p>
+            <p><strong>Complementarios:</strong> exactamente a 180° (rojo 0° ↔ cian 180°, azul 240° ↔ naranja 60°).</p>
+            <p><strong>Triadas:</strong> 3 colores separados por 120°.</p>
+            <p><strong>Análogos:</strong> colores con diferencia de ±30°.</p>
+            <div class="edu-note"><strong>Ventaja en CSS:</strong> Para oscurecer un color en HSL, solo reduces L. Para aclararlo, aumentas L. Con RGB tendrías que recalcular los tres canales. CSS introdujo <code>hsl()</code> en 2010 porque los diseñadores piensan "quiero este color pero más oscuro", no "baja el canal azul 30 unidades".</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">B — Diferencia HSL vs HSV</div>
+        <div class="edu-cols">
+          <div class="edu-prose">
+            <h3>HSL — simétrico, para diseño web</h3>
+            <p>L=50% es siempre el color base puro. Subir L acerca al blanco; bajar L acerca al negro. El espacio es simétrico. Adoptado por CSS3 (2010) como primer espacio no-RGB en navegadores.</p>
+            <h3>HSV — intuitivo para pintores digitales</h3>
+            <p>V=100% con S=100% es el "pigmento puro". Bajar V es añadir negro (sombra). Bajar S es añadir blanco (dilución). Adobe Photoshop adoptó HSB (equivalente a HSV) en los 90s.</p>
+            <div class="edu-note warn"><strong>Diferencia clave:</strong> En HSL, el blanco está en L=100% (vértice superior del bicono). En HSV, el blanco está en V=100%, S=0% (centro de la base del cono). En HSV el blanco no es un vértice: está "dentro" de la base.</div>
+          </div>
+          <div class="edu-interactive" style="background:var(--es2)">
+            <div class="edu-interactive-ttl">HSL vs HSV — gradiente comparativo</div>
+            <p style="font-size:.8rem;color:var(--et3);margin-bottom:1rem;line-height:1.5">Cambia el matiz (S=90% fijo) y observa la distribución en cada espacio</p>
+            <div class="edu-sl-row" style="margin-bottom:1.4rem">
+              <span class="edu-sl-lbl lbl-h">H</span>
+              <input type="range" id="ch05-hue" class="edu-slider" min="0" max="359" value="217"/>
+              <span class="edu-sl-val" id="ch05-huev">217°</span>
+            </div>
+            <div class="edu-grad-compare">
+              <div class="edu-grad-block">
+                <div class="edu-grad-lbl">HSL — eje L</div>
+                <div class="edu-grad-bar" id="ch05-hsl-bar"></div>
+                <div class="edu-grad-ticks"><span>L=0%</span><span>L=50%</span><span>L=100%</span></div>
+                <p style="font-size:.72rem;color:var(--et3);margin-top:.4rem;line-height:1.4">Color puro en el centro (L=50%). Blanco y negro en los extremos.</p>
+              </div>
+              <div class="edu-grad-block">
+                <div class="edu-grad-lbl">HSV — eje V</div>
+                <div class="edu-grad-bar" id="ch05-hsv-bar"></div>
+                <div class="edu-grad-ticks"><span>V=0%</span><span>V=50%</span><span>V=100%</span></div>
+                <p style="font-size:.72rem;color:var(--et3);margin-top:.4rem;line-height:1.4">Color puro en el extremo derecho (V=100%). Sin blanco en los extremos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Fórmulas de conversión</div>
+        <div class="edu-cols">
+          <div>
+            <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--et3);margin-bottom:.6rem">RGB → HSL</p>
+            <div class="edu-formula">R'=R/255  G'=G/255  B'=B/255
 max=max(R',G',B')
 min=min(R',G',B')
 Δ = max − min
 
 L = (max + min) / 2
-
 S = 0              si Δ=0
   = Δ/(1−|2L−1|)  si Δ≠0
 
 H = 60·((G'−B')/Δ mod 6)  si max=R'
   = 60·((B'−R')/Δ + 2)    si max=G'
-  = 60·((R'−G')/Δ + 4)    si max=B'
-
-HSL → RGB
-─────────────────────
-C = (1−|2L−1|)·S
-X = C·(1−|(H/60) mod 2−1|)
-m = L − C/2
-(R,G,B) = (R'+m, G'+m, B'+m)·255</pre></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="theory-hsv" class="theory-section theory-alt">
-    <div class="theory-inner">
-      <div class="th-header">
-        <a href="#app" class="back-link">↑ Laboratorio</a>
-        <span class="th-badge geo-badge">Geometría</span>
-        <h2>HSV — Cono Simple</h2>
-        <p class="th-sub">Hue · Saturation · Value — el modelo natural de los selectores</p>
-      </div>
-      <div class="th-grid">
-        <div class="th-content">
-          <h3>Geometría formal</h3>
-          <p>HSV (también HSB) tiene forma de <strong>cono simple</strong>. La punta inferior es negro (V=0). El disco superior muestra colores de máximo brillo.</p>
-          <div class="edu-note hsv-note"><strong>Punta: V=0% → Negro</strong></div>
-          <div class="edu-note hsv-note"><strong>Disco superior (V=100%)</strong><br>Centro S=0% → blanco · Borde S=100% → color puro</div>
-          <div class="compare-table">
-            <div class="cmp-head"><span class="acc-hsl">HSL</span> vs <span class="acc-hsv">HSV</span></div>
-            <div class="cmp-row"><span>Forma</span><span>Bicono</span><span>Cono</span></div>
-            <div class="cmp-row"><span>Tope</span><span>Blanco</span><span>Colores max</span></div>
-            <div class="cmp-row"><span>Color puro</span><span>L=50%,S=100%</span><span>V=100%,S=100%</span></div>
+  = 60·((R'−G')/Δ + 4)    si max=B'</div>
           </div>
-        </div>
-        <div class="th-formula">
-          <div class="formula-block"><pre>RGB → HSV
-─────────────────────
-R'=R/255  G'=G/255  B'=B/255
+          <div>
+            <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--et3);margin-bottom:.6rem">RGB → HSV</p>
+            <div class="edu-formula">R'=R/255  G'=G/255  B'=B/255
 max=max(R',G',B')
 Δ = max − min
 
 V = max
-
 S = 0      si max=0
   = Δ/max  si max≠0
 
-H = (igual que HSL)
+H = (mismo cálculo que HSL)
 
 Radio del cono:
   r(V,S) = V · S
-  → V=0: r=0 (punta, negro)
-  → V=1,S=0: r=0 (blanco)
-  → V=1,S=1: r=1 (puro)</pre></div>
+  → V=0:      r=0 (vértice negro)
+  → V=1,S=0:  r=0 (blanco)
+  → V=1,S=1:  r=1 (color puro)</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section id="theory-conv" class="theory-section">
-    <div class="theory-inner">
-      <div class="th-header">
-        <a href="#app" class="back-link">↑ Laboratorio</a>
-        <span class="th-badge conv-badge">Matemática</span>
-        <h2>Conversiones — Pasos para el color actual</h2>
-        <p class="th-sub">Fórmulas aplicadas al color seleccionado en el laboratorio</p>
-      </div>
-      <div id="conversion-steps" class="conv-steps">
-        <p style="color:var(--t3)">Selecciona un color en el laboratorio y vuelve aquí.</p>
-      </div>
     </div>
-  </section>
+  </div><!-- /ch-05 -->
 
-</div><!-- /theory-wrapper -->
+  <!-- ══════════ CAPÍTULO 06 ══════════ -->
+  <div class="edu-chapter" id="ch-06">
+    <div class="edu-ch-header">
+      <div class="edu-eyebrow">Capítulo 06</div>
+      <h2 class="edu-ch-title">Geometría del color — los conos HSL y HSV</h2>
+      <p class="edu-ch-concept">El modelo HSL forma un bicono doble (dos conos unidos por la base). El HSV forma un cono simple. Estas formas no son caprichosas: emergen directamente de la geometría matemática del espacio de color.</p>
+    </div>
+    <div class="edu-body">
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Por qué la forma de cono emerge de las matemáticas</div>
+        <div class="edu-cols-6-4">
+          <div class="edu-prose">
+            <h3>El argumento geométrico</h3>
+            <p>Imagina que el eje vertical es la luminosidad (negro en la base, blanco en la cima). En <strong>cualquier punto del eje</strong>, los colores disponibles se disponen en un círculo: el ángulo es el matiz (H) y el radio es la saturación (S).</p>
+            <p>En la oscuridad total (negro), no existe diferenciación cromática: todos los colores convergen en un solo punto → <strong>radio = 0</strong>. En el blanco total, igual → <strong>radio = 0</strong>. En el punto medio (color puro), la diferenciación es máxima → <strong>radio = 1</strong>.</p>
+            <p>Esa evolución del radio al moverse por el eje produce <strong>naturalmente la forma de bicono</strong> en HSL, y la forma de <strong>cono simple</strong> en HSV (donde el blanco no es un vértice sino el centro del disco superior).</p>
+            <div class="edu-note">
+              <strong>Fórmula del radio en HSL:</strong><br>
+              <code>r(L, S) = S · (1 − |2L − 1|)</code><br>
+              A L=0% o L=100%: r=0. A L=50%: r=S (máximo).<br><br>
+              <strong>Fórmula del radio en HSV:</strong><br>
+              <code>r(V, S) = V · S</code><br>
+              A V=0%: r=0 (vértice negro). A V=100%, S=100%: r=1.
+            </div>
+            <h3>El bicono HSL</h3>
+            <p><strong>Vértice superior:</strong> blanco (L=100%). <strong>Vértice inferior:</strong> negro (L=0%). <strong>Ecuador:</strong> cinturón de colores puros saturados (L=50%, S=100%). La saturación controla la distancia al eje central.</p>
+            <h3>El cono HSV</h3>
+            <p><strong>Vértice inferior:</strong> negro (V=0%). <strong>Base superior:</strong> los colores de máximo brillo (V=100%). En el centro de la base está el blanco (S=0%). En el borde están los colores puros (S=100%).</p>
+          </div>
+          <div class="edu-diagram">
+            <svg viewBox="0 0 200 370" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="hslEq6" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%"   stop-color="#CC2200"/>
+                  <stop offset="16%"  stop-color="#FFCC00"/>
+                  <stop offset="33%"  stop-color="#44BB44"/>
+                  <stop offset="50%"  stop-color="#00CCDD"/>
+                  <stop offset="66%"  stop-color="#4488FF"/>
+                  <stop offset="83%"  stop-color="#CC44FF"/>
+                  <stop offset="100%" stop-color="#CC2200"/>
+                </linearGradient>
+              </defs>
+              <!-- HSL label -->
+              <text x="100" y="12" font-size="10" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">HSL — Bicono</text>
+              <!-- Upper cone (top=white apex, base=equator) -->
+              <polygon points="100,22 30,110 170,110" fill="#dedede" opacity="0.85"/>
+              <!-- Lower cone (base=equator, bottom=black apex) -->
+              <polygon points="100,198 30,110 170,110" fill="#111" opacity="0.95"/>
+              <!-- Equator (spectrum band) -->
+              <rect x="30" y="107" width="140" height="6" rx="1" fill="url(#hslEq6)"/>
+              <!-- Axis -->
+              <line x1="100" y1="24" x2="100" y2="196" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+              <!-- Points -->
+              <circle cx="100" cy="22"  r="4" fill="white" opacity="0.9"/>
+              <circle cx="100" cy="198" r="4" fill="#222"/>
+              <!-- Labels -->
+              <text x="106" y="20"  font-size="8" fill="#ccc"    font-family="monospace">L=100% — Blanco</text>
+              <text x="106" y="202" font-size="8" fill="#555"    font-family="monospace">L=0%   — Negro</text>
+              <text x="100" y="104" font-size="7" fill="#FFCC00" font-family="monospace" text-anchor="middle">L=50%, S=100%</text>
+              <text x="5"   y="115" font-size="7" fill="#FFCC00" font-family="monospace">Colores puros</text>
+
+              <!-- HSV Cone label -->
+              <text x="100" y="232" font-size="10" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">HSV — Cono simple</text>
+              <!-- Triangle: top-left=white(30,250), top-right=color(170,250), apex=black(100,355) -->
+              <defs>
+                <linearGradient id="hsvTopRow" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0%"   stop-color="#ffffff"/>
+                  <stop offset="100%" stop-color="#4488FF"/>
+                </linearGradient>
+                <linearGradient id="hsvBody" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%"   stop-color="#666" stop-opacity="0"/>
+                  <stop offset="100%" stop-color="#000"/>
+                </linearGradient>
+              </defs>
+              <polygon points="30,250 170,250 100,350" fill="#1d1d21"/>
+              <polygon points="30,250 170,250 100,350" fill="url(#hsvTopRow)" opacity="0.5"/>
+              <polygon points="30,250 170,250 100,350" fill="url(#hsvBody)" opacity="0.7"/>
+              <line x1="30" y1="250" x2="170" y2="250" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+              <!-- Points -->
+              <circle cx="30"  cy="250" r="4" fill="white" opacity="0.85"/>
+              <circle cx="170" cy="250" r="4" fill="#4488FF"/>
+              <circle cx="100" cy="350" r="4" fill="#222"/>
+              <!-- Labels -->
+              <text x="24"  cy="248" font-size="7" fill="#888" font-family="monospace" text-anchor="end">Blanco</text>
+              <text x="24"  y="248" font-size="7" fill="#888" font-family="monospace" text-anchor="end">Blanco</text>
+              <text x="24"  y="256" font-size="7" fill="#555" font-family="monospace" text-anchor="end">S=0%</text>
+              <text x="175" y="248" font-size="7" fill="#4488FF" font-family="monospace">Color puro</text>
+              <text x="175" y="256" font-size="7" fill="#4488FF" font-family="monospace">S=100%</text>
+              <text x="106" y="354" font-size="7" fill="#515155" font-family="monospace">V=0% — Negro</text>
+            </svg>
+            <div class="edu-diagram-cap">Sección transversal del bicono HSL (arriba) y el cono HSV (abajo)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Historia — de Munsell a OKLCH</div>
+        <div class="edu-timeline">
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">1905</div>
+            <div class="edu-tl-who">Albert H. Munsell</div>
+            <div class="edu-tl-desc">Propone el primer sistema de color perceptual con tres dimensiones (Hue, Value, Chroma). Su objetivo: que distancias iguales en el espacio correspondan a diferencias perceptuales iguales para el observador humano. Precursor conceptual directo de HSL/HSV.</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">1931</div>
+            <div class="edu-tl-who">CIE — Comisión Internacional de Iluminación</div>
+            <div class="edu-tl-desc">Estandariza el espacio CIE XYZ, el primer sistema matemático de color basado en datos de observadores reales. Es la referencia científica absoluta de la que derivan todos los demás espacios de color modernos, incluyendo sRGB, Adobe RGB y OKLCH.</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">1970</div>
+            <div class="edu-tl-who">Alvy Ray Smith — HSV</div>
+            <div class="edu-tl-desc">Cofundador de Pixar, formaliza el modelo HSV para computación gráfica. Su objetivo: dar a los artistas digitales un sistema más intuitivo que RGB para seleccionar y manipular colores. El pintor piensa en "color + sombra", no en "canales R, G y B".</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">1978</div>
+            <div class="edu-tl-who">Joblove &amp; Greenberg — HSL (SIGGRAPH)</div>
+            <div class="edu-tl-desc">Presentan el modelo HSL (llamado entonces HLS) como alternativa a HSV en SIGGRAPH. Ventaja clave: L=50% es siempre el color base puro, creando simetría perfecta entre sombra y luz. Esto lo hace más predecible para diseño.</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">1990s</div>
+            <div class="edu-tl-who">Adobe Photoshop — HSB</div>
+            <div class="edu-tl-desc">Adopta HSB (equivalente a HSV) en su selector de color. Millones de diseñadores aprenden a pensar en Hue, Saturation y Brightness como forma natural de seleccionar y modificar colores. HSB se convierte en el estándar de facto de las herramientas creativas.</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">2010</div>
+            <div class="edu-tl-who">CSS3 — hsl() nativo en navegadores</div>
+            <div class="edu-tl-desc">El W3C introduce <code>hsl()</code> en el estándar web. Es el primer espacio no-RGB que los navegadores soportan nativamente. Los desarrolladores web pueden por primera vez especificar colores de forma intuitiva directamente en CSS.</div>
+          </div>
+          <div class="edu-tl-item">
+            <div class="edu-tl-year">2022</div>
+            <div class="edu-tl-who">CSS Color Level 4 — oklch() y oklab()</div>
+            <div class="edu-tl-desc">El W3C introduce espacios perceptualmente uniformes. En OKLCH, distancias iguales en el espacio corresponden a diferencias perceptuales iguales — algo que HSL no garantiza. Es el estándar recomendado para diseño web de alta fidelidad moderno.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-block">
+        <div class="edu-block-ttl">Limitaciones de HSL y el futuro: OKLCH</div>
+        <div class="edu-prose">
+          <h3>El problema perceptual de HSL</h3>
+          <p>HSL es una <strong>transformación geométrica de RGB</strong>, no un modelo de percepción visual. Dos colores con el mismo L pueden percibirse como muy distintos en luminosidad.</p>
+          <p>Ejemplo: <code>hsl(60, 100%, 50%)</code> (amarillo) y <code>hsl(240, 100%, 50%)</code> (azul) tienen ambos L=50%, pero el amarillo parece mucho más brillante. Esto ocurre porque el ojo humano tiene muchos más conos M y L (sensibles al verde-amarillo) que conos S (sensibles al azul).</p>
+          <div class="edu-note warn"><strong>Causa:</strong> HSL distribuye el espacio geométricamente, pero la percepción humana del brillo no es lineal ni uniforme a lo largo del espectro. El sistema L+M domina la percepción luminosa, haciendo que amarillos y verdes "parezcan" más brillantes que azules al mismo valor de L.</div>
+          <h3>OKLCH — el HSL perceptualmente correcto</h3>
+          <p><strong>OKLCH</strong> usa los mismos tres ejes conceptuales (Lightness, Chroma, Hue) que HSL, pero con matemáticas calibradas sobre datos de percepción humana real. En OKLCH, si cambias solo L, el color percibido solo cambia en brillo — nunca en matiz ni saturación aparente.</p>
+          <p>Soportado nativamente en navegadores modernos desde 2022. Es el estándar recomendado para tokens de diseño y sistemas de diseño modernos.</p>
+        </div>
+        <div class="edu-formula" style="margin-top:1.2rem">/* HSL — NO perceptualmente uniforme */
+hsl(60,  100%, 50%)   /* Amarillo: se percibe muy brillante */
+hsl(240, 100%, 50%)   /* Azul:     se percibe oscuro        */
+/* Mismo L=50% → brillo perceptual completamente distinto  */
+
+/* OKLCH — Perceptualmente uniforme (CSS Color Level 4) */
+oklch(0.80 0.18 105)  /* Amarillo L=0.80: brillo consistente */
+oklch(0.80 0.18 264)  /* Azul     L=0.80: mismo brillo real  */</div>
+      </div>
+
+    </div>
+  </div><!-- /ch-06 -->
+
+</div><!-- /edu-section -->
 
 <script src="js/colorMath.js"></script>
 <script src="js/hueWheel.js"></script>
@@ -457,5 +975,6 @@ Radio del cono:
 <script src="js/hslModel.js"></script>
 <script src="js/hsvModel.js"></script>
 <script src="js/app.js"></script>
+<script src="js/theory.js"></script>
 </body>
 </html>
