@@ -103,7 +103,7 @@ function updateSwatch(r, g, b, hex, hsl) {
   const lum = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
   const textColor = lum > 0.55 ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.9)';
   sw.style.background = `rgb(${r},${g},${b})`;
-  document.getElementById('sw-hex').textContent    = '#' + hex.toUpperCase();
+  document.getElementById('sw-hex').textContent    = hex.toUpperCase();
   document.getElementById('sw-hex').style.color    = textColor;
   const fam = colorFamily(r, g, b, hsl);
   document.getElementById('sw-family').textContent = fam.name;
@@ -166,7 +166,7 @@ function updateMini(hsl, hsv) {
 /* ── Representations ─────────────────────────── */
 function updateRepr(r, g, b, hex, hsl, hsv) {
   document.getElementById('repr-rgb').textContent  = `rgb(${r}, ${g}, ${b})`;
-  document.getElementById('repr-hex').textContent  = `#${hex.toUpperCase()}`;
+  document.getElementById('repr-hex').textContent  = hex.toUpperCase();
   document.getElementById('repr-hsl').textContent  =
     `hsl(${hsl.h.toFixed(0)}, ${hsl.s.toFixed(0)}%, ${hsl.l.toFixed(0)}%)`;
   document.getElementById('repr-hsv').textContent  =
