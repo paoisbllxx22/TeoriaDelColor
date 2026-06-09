@@ -95,6 +95,7 @@ function updateAll(r, g, b) {
   update3DModels(hsl, hsv);
   updateTopView(hsl, hsv);
   updateSideView(hsl, hsv);
+  if (window._syncColorInput) window._syncColorInput();
 }
 
 /* ── Swatch ─────────────────────────────────── */
@@ -242,6 +243,132 @@ function updateSideView(hsl, hsv) {
   const lv = activeSpace === 'hsl' ? hsl.l : hsv.v;
   const bg = isDark ? { r: 13, g: 13, b: 15 } : { r: 240, g: 240, b: 238 };
   sideViewInst.draw(hsl.h, hsl.s, lv, activeSpace, bg.r, bg.g, bg.b, currentR, currentG, currentB);
+}
+
+/* ═══════════════════════════════════════════════
+   COLOR INPUT PARSER
+   ═══════════════════════════════════════════════ */
+
+function parseColorInput(raw) {
+  const s = raw.trim();
+  if (!s) return null;
+
+  // HEX: #RGB, #RRGGBB (ignore alpha)
+  const hexMatch = s.match(/^#?([0-9a-f]{3,8})$/i);
+  if (hexMatch) {
+    const h = hexMatch[1];
+    if (h.length === 3) {
+      const r = parseInt(h[0] + h[0], 16);
+      const g = parseInt(h[1] + h[1], 16);
+      const b = parseInt(h[2] + h[2], 16);
+      return { r, g, b };
+    }
+    if (h.length === 6 || h.length === 8) {
+      return hexToRgb('#' + h.substring(0, 6));
+    }
+  }
+
+  // rgb(r, g, b) or rgb(r g b)
+  const rgbMatch = s.match(/^rgba?\(\s*([\d.]+%?)\s*[, ]\s*([\d.]+%?)\s*[, ]\s*([\d.]+%?)[\s,)]/i);
+  if (rgbMatch) {
+    const parse = (v) => v.endsWith('%') ? Math.round(parseFloat(v) / 100 * 255) : Math.round(parseFloat(v));
+    return { r: parse(rgbMatch[1]), g: parse(rgbMatch[2]), b: parse(rgbMatch[3]) };
+  }
+
+  // hsl(h, s%, l%) or hsl(h s% l%)
+  const hslMatch = s.match(/^hsla?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)%?\s*[, ]\s*([\d.]+)%?/i);
+  if (hslMatch) {
+    const h = parseFloat(hslMatch[1]) % 360;
+    const sat = parseFloat(hslMatch[2]);
+    const l = parseFloat(hslMatch[3]);
+    return hslToRgb(h, sat, l);
+  }
+
+  // hsv(h, s%, v%) or hsb(h, s%, b%)
+  const hsvMatch = s.match(/^hs[vb]a?\(\s*([\d.]+)\s*[, ]\s*([\d.]+)%?\s*[, ]\s*([\d.]+)%?/i);
+  if (hsvMatch) {
+    const h = parseFloat(hsvMatch[1]) % 360;
+    const sat = parseFloat(hsvMatch[2]);
+    const v = parseFloat(hsvMatch[3]);
+    return hsvToRgb(h, sat, v);
+  }
+
+  // Named CSS color via canvas
+  try {
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.fillStyle = s;
+    const filled = ctx.fillStyle;
+    if (filled && filled !== '#000000' || s.toLowerCase() === 'black') {
+      if (filled.startsWith('#')) return hexToRgb(filled);
+      const m = filled.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+      if (m) return { r: +m[1], g: +m[2], b: +m[3] };
+    }
+  } catch (_) {}
+
+  return null;
+}
+
+function initColorInput() {
+  const field = document.getElementById('color-input');
+  const hint  = document.getElementById('color-input-hint');
+  const DEFAULT_HINT = 'HEX · RGB · HSL · HSV — presiona Enter';
+  let clearTimer = null;
+
+  function setValid() {
+    field.classList.remove('is-error');
+    field.classList.add('is-valid');
+    hint.textContent = DEFAULT_HINT;
+    hint.classList.remove('hint-error');
+    clearTimeout(clearTimer);
+    clearTimer = setTimeout(() => field.classList.remove('is-valid'), 1200);
+  }
+
+  function setError() {
+    field.classList.remove('is-valid');
+    field.classList.add('is-error');
+    hint.textContent = 'Formato no reconocido — prueba #FF6432, rgb(255,100,50) o hsl(15,100%,60%)';
+    hint.classList.add('hint-error');
+    clearTimeout(clearTimer);
+    clearTimer = setTimeout(() => {
+      field.classList.remove('is-error');
+      hint.textContent = DEFAULT_HINT;
+      hint.classList.remove('hint-error');
+    }, 2500);
+  }
+
+  function tryApply() {
+    const rgb = parseColorInput(field.value);
+    if (!rgb) { setError(); return; }
+    const r = Math.max(0, Math.min(255, rgb.r));
+    const g = Math.max(0, Math.min(255, rgb.g));
+    const b = Math.max(0, Math.min(255, rgb.b));
+    setValid();
+    updateAll(r, g, b);
+    field.blur();
+  }
+
+  field.addEventListener('input', () => {
+    field.classList.remove('is-valid', 'is-error');
+    hint.textContent = DEFAULT_HINT;
+    hint.classList.remove('hint-error');
+  });
+
+  field.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); tryApply(); }
+    if (e.key === 'Escape') { field.value = ''; field.blur(); }
+  });
+
+  field.addEventListener('blur', () => {
+    if (field.value.trim()) tryApply();
+  });
+
+  field.addEventListener('focus', () => {
+    if (!field.value.trim()) {
+      field.placeholder = rgbToHex(currentR, currentG, currentB);
+    }
+  });
+
+  window._syncColorInput = () => {};
 }
 
 /* ═══════════════════════════════════════════════
@@ -557,6 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTopView();
   initResizeObserver();
   initKeyboardControls();
+  initColorInput();
 
   updateAll(currentR, currentG, currentB);
 

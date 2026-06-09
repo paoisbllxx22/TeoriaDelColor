@@ -43,6 +43,22 @@
     <!-- ─── COLUMNA IZQUIERDA (320px) ─────── -->
     <aside class="col-left">
 
+      <!-- Color input -->
+      <div class="color-input-wrap">
+        <label class="color-input-lbl" for="color-input">Ingresa un color</label>
+        <div class="color-input-row">
+          <input
+            type="text"
+            id="color-input"
+            class="color-input-field"
+            placeholder="#FF6432 · rgb(255,100,50) · hsl(15,100%,60%)"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <span class="color-input-hint" id="color-input-hint">HEX · RGB · HSL · HSV — presiona Enter</span>
+      </div>
+
       <!-- Swatch -->
       <div class="swatch" id="swatch">
         <span class="sw-hex"    id="sw-hex">#FF6432</span>
