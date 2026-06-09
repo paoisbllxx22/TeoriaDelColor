@@ -113,30 +113,6 @@ a      { color: inherit; text-decoration: none; }
 .space-tab.active { background: var(--accent); color: #fff; }
 .space-tab:not(.active):hover { color: var(--t1); background: var(--bg3); }
 
-/* Format pills */
-.fmt-pills {
-  display: flex;
-  gap: 2px;
-  background: var(--bg2);
-  border: 1px solid var(--bd);
-  border-radius: 6px;
-  padding: 2px;
-}
-
-.fmt-pill {
-  background: none;
-  border: none;
-  color: var(--t3);
-  font-family: var(--mono);
-  font-size: .65rem;
-  font-weight: 500;
-  letter-spacing: .05em;
-  padding: .2rem .5rem;
-  border-radius: 4px;
-  transition: background .15s, color .15s;
-}
-.fmt-pill.active { background: var(--bg3); color: var(--t1); border: 1px solid var(--bd2); }
-.fmt-pill:not(.active):hover { color: var(--t2); }
 
 /* Theme toggle */
 .theme-btn {
@@ -523,7 +499,6 @@ kbd {
 }
 .repr-row:hover { border-color: var(--bd2); }
 .repr-row.copied { border-color: var(--success); }
-.repr-row.fmt-active { border-color: var(--accent); }
 
 .rk {
   font-family: var(--mono);
@@ -537,15 +512,14 @@ kbd {
 
 .rv {
   font-family: var(--mono);
-  font-size: .95rem;
+  font-size: .9rem;
   font-weight: 500;
   color: var(--t1);
   flex: 1;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   background: none;
   border: none;
+  min-width: 0;
 }
 
 .ri {

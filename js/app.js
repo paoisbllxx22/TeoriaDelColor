@@ -7,8 +7,7 @@
 /* ── State ──────────────────────────────────── */
 let currentR = 66, currentG = 135, currentB = 245;
 let activeSpace = 'hsl';   // 'hsl' | 'hsv'
-let activeView  = '3d';    // 'top' | 'side' | '3d'
-let activeFmt   = 'hex';   // 'rgb' | 'hex' | 'hsl' | 'hsv'
+let activeView  = '3d';    // 'top' | '3d'
 let isDark      = true;
 
 /* ── Instances ──────────────────────────────── */
@@ -172,10 +171,6 @@ function updateRepr(r, g, b, hex, hsl, hsv) {
     `hsl(${hsl.h.toFixed(0)}, ${hsl.s.toFixed(0)}%, ${hsl.l.toFixed(0)}%)`;
   document.getElementById('repr-hsv').textContent  =
     `hsv(${hsv.h.toFixed(0)}, ${hsv.s.toFixed(0)}%, ${hsv.v.toFixed(0)}%)`;
-
-  document.querySelectorAll('.repr-row').forEach(row => {
-    row.classList.toggle('fmt-active', row.dataset.copyId === 'repr-' + activeFmt);
-  });
 }
 
 /* ── Color family chip ───────────────────────── */
@@ -319,17 +314,6 @@ function initViewToggle() {
   });
 }
 
-function initFmtPills() {
-  document.querySelectorAll('.fmt-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      activeFmt = pill.dataset.fmt;
-      document.querySelectorAll('.fmt-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      const all = allFromRgb(currentR, currentG, currentB);
-      updateRepr(currentR, currentG, currentB, all.hex, all.hsl, all.hsv);
-    });
-  });
-}
 
 function initHueWheel() {
   const canvas = document.getElementById('hue-wheel');
@@ -581,7 +565,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initSpaceTabs();
   initViewToggle();
-  initFmtPills();
   initHueWheel();
   initRgbSliders();
   initLVSlider();
