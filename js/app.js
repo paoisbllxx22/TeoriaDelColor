@@ -376,22 +376,22 @@ function initColorInput() {
    ═══════════════════════════════════════════════ */
 
 function initTheme() {
-  const btn  = document.getElementById('theme-btn');
-  const icon = document.getElementById('theme-icon');
-
   function applyTheme(dark) {
     isDark = dark;
     document.body.classList.toggle('theme-dark',  dark);
     document.body.classList.toggle('theme-light', !dark);
-    icon.textContent = dark ? '🌙' : '☀️';
+    document.querySelectorAll('[data-theme-icon]').forEach(el => {
+      el.textContent = dark ? '🌙' : '☀️';
+    });
     if (hslModel3D) hslModel3D.updateTheme(dark);
     if (hsvModel3D) hsvModel3D.updateTheme(dark);
-    // Re-draw side view with new background
     const all = allFromRgb(currentR, currentG, currentB);
     updateSideView(all.hsl, all.hsv);
   }
 
-  btn.addEventListener('click', () => applyTheme(!isDark));
+  document.querySelectorAll('[data-action="toggle-theme"]').forEach(btn => {
+    btn.addEventListener('click', () => applyTheme(!isDark));
+  });
   applyTheme(true);
 }
 
@@ -680,7 +680,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHueWheel();
   initRgbSliders();
   initLVSlider();
-  init3DModels();
+  try { init3DModels(); } catch (e) { console.warn('3D init failed:', e); }
   initTopView();
   initResizeObserver();
   initKeyboardControls();
@@ -696,4 +696,5 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.theory-wrapper')?.scrollIntoView({ behavior: 'smooth' });
     });
   }
+
 });

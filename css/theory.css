@@ -2,20 +2,48 @@
    theory.css — Sección educativa Color Lab
    ═══════════════════════════════════════════════ */
 
-/* ── Variables ──────────────────────────────── */
+/* ── Variables — tema oscuro (por defecto) ──── */
 .edu-section {
-  --ea: #4287F5;
+  --ea:   #4287F5;
   --ea-d: rgba(66,135,245,.11);
-  --es1: #17171a;
-  --es2: #1d1d21;
-  --es3: #242428;
-  --et1: #e8e8e8;
-  --et2: #a0a0a0;
-  --et3: #515155;
-  --ebd: rgba(255,255,255,.07);
+  --es1:  #17171a;
+  --es2:  #1d1d21;
+  --es3:  #242428;
+  --et1:  #e8e8e8;
+  --et2:  #a0a0a0;
+  --et3:  #515155;
+  --ebd:  rgba(255,255,255,.07);
   background: #0d0d0f;
   color: var(--et1);
   font-family: 'Inter', sans-serif;
+}
+
+/* ── Variables — tema claro ─────────────────── */
+body.theme-light .edu-section {
+  --ea-d: rgba(66,135,245,.1);
+  --es1:  #ffffff;
+  --es2:  #f4f4f2;
+  --es3:  #e8e8e5;
+  --et1:  #111111;
+  --et2:  #555558;
+  --et3:  #999999;
+  --ebd:  rgba(0,0,0,.08);
+  background: #f0f0ee;
+  color: var(--et1);
+}
+
+body.theme-light .edu-nav-wrap {
+  background: rgba(240,240,238,.95);
+  border-bottom-color: rgba(0,0,0,.08);
+}
+
+body.theme-light .edu-panel-add {
+  background: #1a1a1f;
+}
+
+body.theme-light .theory-scroll-cue {
+  background: var(--bg2);
+  border-top-color: var(--bd);
 }
 
 /* ── Chapter nav ────────────────────────────── */
@@ -26,12 +54,17 @@
   background: rgba(13,13,15,.94);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--ebd);
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  padding-right: .75rem;
 }
 
 .edu-nav {
   display: flex;
   overflow-x: auto;
   scrollbar-width: none;
+  flex: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -56,9 +89,35 @@
 .edu-pill:hover  { color: var(--et2); }
 .edu-pill.active { color: var(--ea);  border-bottom-color: var(--ea); }
 
-/* ── Chapter ────────────────────────────────── */
-.edu-chapter        { display: none; }
-.edu-chapter.active { display: block; }
+.edu-theme-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin: auto .75rem auto auto;
+  background: none;
+  border: 1px solid var(--ebd);
+  border-radius: 6px;
+  font-size: .9rem;
+  color: var(--et3);
+  cursor: pointer;
+  transition: border-color .14s, background .14s;
+}
+.edu-theme-btn:hover {
+  border-color: var(--et3);
+  background: var(--es2);
+}
+
+/* ── Chapter (always visible, scroll-anchored) ── */
+.edu-chapter {
+  display: block;
+  scroll-margin-top: 54px;
+}
+.edu-chapter + .edu-chapter {
+  border-top: 1px solid var(--ebd);
+}
 
 /* ── Chapter header ─────────────────────────── */
 .edu-ch-header {
@@ -499,6 +558,96 @@
   font-size: .84rem;
   color: var(--et2);
   line-height: 1.65;
+}
+
+/* ── TOC index ──────────────────────────────── */
+.edu-toc {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem 2.5rem;
+  border-bottom: 1px solid var(--ebd);
+}
+
+.edu-toc-header {
+  margin-bottom: 2rem;
+}
+
+.edu-toc-eyebrow {
+  display: block;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ea);
+  margin-bottom: .4rem;
+}
+
+.edu-toc-title {
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--et1);
+  letter-spacing: -.022em;
+  margin: 0 0 .5rem;
+}
+
+.edu-toc-desc {
+  font-size: .88rem;
+  color: var(--et3);
+  margin: 0;
+  line-height: 1.65;
+}
+
+.edu-toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .85rem;
+}
+@media (max-width: 820px) { .edu-toc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .edu-toc-grid { grid-template-columns: 1fr; } }
+
+.edu-toc-card {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: 1.2rem 1.35rem 1.3rem;
+  background: var(--es1);
+  border: 1px solid var(--ebd);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color .15s, background .15s, transform .12s;
+  cursor: pointer;
+}
+.edu-toc-card:hover {
+  border-color: rgba(66,135,245,.45);
+  background: var(--es2);
+  transform: translateY(-1px);
+}
+
+.edu-toc-num {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ea);
+  opacity: .65;
+  line-height: 1;
+  margin-bottom: .35rem;
+}
+
+.edu-toc-ch-title {
+  display: block;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--et1);
+  line-height: 1.35;
+}
+
+.edu-toc-ch-desc {
+  display: block;
+  font-size: .77rem;
+  color: var(--et3);
+  line-height: 1.5;
+  margin-top: .1rem;
 }
 
 /* ── Subsection heading ─────────────────────── */

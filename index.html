@@ -6,8 +6,8 @@
   <title>Color Lab — RGB · HEX · HSL · HSV</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="js/vendor/three.min.js"></script>
+  <script src="js/vendor/OrbitControls.js"></script>
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/theory.css" />
 </head>
@@ -32,8 +32,8 @@
     </div>
 
     <div class="tb-right">
-      <button class="theme-btn" id="theme-btn" title="Alternar tema claro / oscuro">
-        <span id="theme-icon">🌙</span>
+      <button class="theme-btn" data-action="toggle-theme" title="Alternar tema claro / oscuro">
+        <span data-theme-icon>🌙</span>
       </button>
     </div>
   </header>
@@ -255,20 +255,64 @@
 
 <div class="edu-section" id="edu-anchor">
 
-  <!-- ── Navegación de capítulos ─────────────── -->
+  <!-- ── Navegación de capítulos (sticky, scroll-linked) ── -->
   <div class="edu-nav-wrap">
-    <nav class="edu-nav" role="tablist">
-      <button class="edu-pill active" data-ch="01" role="tab">01 · Los colores no existen</button>
-      <button class="edu-pill" data-ch="02" role="tab">02 · El ojo humano</button>
-      <button class="edu-pill" data-ch="03" role="tab">03 · RGB y los píxeles</button>
-      <button class="edu-pill" data-ch="04" role="tab">04 · CMYK y la tinta</button>
-      <button class="edu-pill" data-ch="05" role="tab">05 · HSL y HSV</button>
-      <button class="edu-pill" data-ch="06" role="tab">06 · Geometría del color</button>
+    <nav class="edu-nav" role="navigation" aria-label="Capítulos">
+      <button class="edu-pill" data-ch="01">01 · Los colores no existen</button>
+      <button class="edu-pill" data-ch="02">02 · El ojo humano</button>
+      <button class="edu-pill" data-ch="03">03 · RGB y los píxeles</button>
+      <button class="edu-pill" data-ch="04">04 · CMYK y la tinta</button>
+      <button class="edu-pill" data-ch="05">05 · HSL y HSV</button>
+      <button class="edu-pill" data-ch="06">06 · Geometría del color</button>
     </nav>
+    <button class="edu-theme-btn" data-action="toggle-theme" title="Alternar tema claro / oscuro">
+      <span data-theme-icon>🌙</span>
+    </button>
+  </div>
+
+  <!-- ── Índice de capítulos ─────────────────── -->
+  <div class="edu-toc">
+    <div class="edu-toc-header">
+      <span class="edu-toc-eyebrow">Teoría del Color</span>
+      <h2 class="edu-toc-title">Índice de capítulos</h2>
+      <p class="edu-toc-desc">Seis capítulos que exploran la física, la biología y las matemáticas detrás del color.</p>
+    </div>
+    <div class="edu-toc-grid">
+      <a class="edu-toc-card" href="#ch-01">
+        <span class="edu-toc-num">01</span>
+        <span class="edu-toc-ch-title">"Los colores no existen"</span>
+        <span class="edu-toc-ch-desc">Qué es la luz y cómo el cerebro construye el color</span>
+      </a>
+      <a class="edu-toc-card" href="#ch-02">
+        <span class="edu-toc-num">02</span>
+        <span class="edu-toc-ch-title">El ojo humano</span>
+        <span class="edu-toc-ch-desc">Bastones, conos y la percepción de millones de colores</span>
+      </a>
+      <a class="edu-toc-card" href="#ch-03">
+        <span class="edu-toc-num">03</span>
+        <span class="edu-toc-ch-title">RGB y los píxeles</span>
+        <span class="edu-toc-ch-desc">Color aditivo, bits y cómo las pantallas crean color</span>
+      </a>
+      <a class="edu-toc-card" href="#ch-04">
+        <span class="edu-toc-num">04</span>
+        <span class="edu-toc-ch-title">CMYK y la tinta</span>
+        <span class="edu-toc-ch-desc">Color sustractivo y por qué la imprenta funciona al revés</span>
+      </a>
+      <a class="edu-toc-card" href="#ch-05">
+        <span class="edu-toc-num">05</span>
+        <span class="edu-toc-ch-title">HSL y HSV</span>
+        <span class="edu-toc-ch-desc">Los espacios de color pensados para personas, no máquinas</span>
+      </a>
+      <a class="edu-toc-card" href="#ch-06">
+        <span class="edu-toc-num">06</span>
+        <span class="edu-toc-ch-title">Geometría del color</span>
+        <span class="edu-toc-ch-desc">Los conos y biconos que emergen de las matemáticas del color</span>
+      </a>
+    </div>
   </div>
 
   <!-- ══════════ CAPÍTULO 01 ══════════ -->
-  <div class="edu-chapter active" id="ch-01">
+  <div class="edu-chapter" id="ch-01">
     <div class="edu-ch-header">
       <div class="edu-eyebrow">Capítulo 01</div>
       <h2 class="edu-ch-title">"Los colores no existen"</h2>
@@ -316,41 +360,6 @@
             <div class="edu-note"><strong>La manzana no "es" roja.</strong> El rojo es la interpretación neurológica de ~650 nm impactando los fotorreceptores del ojo bajo iluminación estándar. Un perro o una abeja perciben esa misma manzana de forma completamente distinta.</div>
             <h3>Negro y blanco</h3>
             <p><strong>Negro</strong> no es un color: es la ausencia total de fotones. Ninguna luz llega al ojo. <strong>Blanco</strong> es reflexión total y uniforme de todas las longitudes de onda visibles. El papel blanco refleja entre el 85 y 95% de la luz incidente.</p>
-          </div>
-          <div class="edu-diagram">
-            <svg viewBox="0 0 220 255" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="34" cy="38" r="20" fill="#FFCC00" opacity="0.9"/>
-              <line x1="34" y1="13" x2="34" y2="6"  stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
-              <line x1="34" y1="63" x2="34" y2="70" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
-              <line x1="9"  y1="38" x2="2"  y2="38" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
-              <line x1="59" y1="38" x2="66" y2="38" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
-              <line x1="15" y1="19" x2="10" y2="14" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
-              <line x1="53" y1="57" x2="58" y2="62" stroke="#FFCC00" stroke-width="2" opacity="0.6"/>
-              <text x="34" y="92" font-size="9" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">Luz blanca</text>
-              <text x="34" y="103" font-size="9" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">(todas las λ)</text>
-              <line x1="34" y1="58" x2="34" y2="120" stroke="#e8e8e8" stroke-width="1.5" opacity="0.3"/>
-              <polygon points="30,116 38,116 34,124" fill="#e8e8e8" opacity="0.3"/>
-              <rect x="8" y="126" width="52" height="38" rx="8" fill="#1d1d21" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
-              <text x="34" y="143" font-size="10" fill="#e8e8e8" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">Objeto</text>
-              <text x="34" y="157" font-size="8"  fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">absorbe G+B</text>
-              <line x1="8"  y1="143" x2="-8" y2="143" stroke="#44BB44" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,2"/>
-              <line x1="8"  y1="154" x2="-8" y2="162" stroke="#4488FF" stroke-width="1.5" opacity="0.5" stroke-dasharray="3,2"/>
-              <text x="-10" y="141" font-size="7" fill="#44BB44" font-family="monospace" opacity="0.7" text-anchor="end">520nm ✗</text>
-              <text x="-10" y="164" font-size="7" fill="#4488FF" font-family="monospace" opacity="0.7" text-anchor="end">450nm ✗</text>
-              <line x1="60" y1="145" x2="118" y2="145" stroke="#CC2200" stroke-width="2"/>
-              <polygon points="113,141 121,145 113,149" fill="#CC2200"/>
-              <text x="90" y="137" font-size="8" fill="#CC2200" font-family="monospace" text-anchor="middle">650 nm</text>
-              <text x="90" y="160" font-size="8" fill="#515155" font-family="monospace" text-anchor="middle">refleja R</text>
-              <ellipse cx="162" cy="145" rx="27" ry="17" fill="#1d1d21" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-              <circle  cx="162" cy="145" r="8"  fill="#242428"/>
-              <circle  cx="162" cy="145" r="5"  fill="#2d4080"/>
-              <circle  cx="164" cy="142" r="1.5" fill="rgba(255,255,255,0.7)"/>
-              <text x="162" y="178" font-size="9" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">Ojo → Cerebro</text>
-              <text x="162" y="190" font-size="9" fill="#CC2200" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">"Rojo"</text>
-              <text x="110" y="222" font-size="8" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">La manzana no "es" roja:</text>
-              <text x="110" y="234" font-size="8" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle">es interpretación del cerebro</text>
-            </svg>
-            <div class="edu-diagram-cap">Proceso de percepción: absorción y reflexión de longitudes de onda</div>
           </div>
         </div>
       </div>
@@ -834,69 +843,6 @@ Radio del cono:
             <p><strong>Vértice superior:</strong> blanco (L=100%). <strong>Vértice inferior:</strong> negro (L=0%). <strong>Ecuador:</strong> cinturón de colores puros saturados (L=50%, S=100%). La saturación controla la distancia al eje central.</p>
             <h3>El cono HSV</h3>
             <p><strong>Vértice inferior:</strong> negro (V=0%). <strong>Base superior:</strong> los colores de máximo brillo (V=100%). En el centro de la base está el blanco (S=0%). En el borde están los colores puros (S=100%).</p>
-          </div>
-          <div class="edu-diagram">
-            <svg viewBox="0 0 200 370" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="hslEq6" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%"   stop-color="#CC2200"/>
-                  <stop offset="16%"  stop-color="#FFCC00"/>
-                  <stop offset="33%"  stop-color="#44BB44"/>
-                  <stop offset="50%"  stop-color="#00CCDD"/>
-                  <stop offset="66%"  stop-color="#4488FF"/>
-                  <stop offset="83%"  stop-color="#CC44FF"/>
-                  <stop offset="100%" stop-color="#CC2200"/>
-                </linearGradient>
-              </defs>
-              <!-- HSL label -->
-              <text x="100" y="12" font-size="10" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">HSL — Bicono</text>
-              <!-- Upper cone (top=white apex, base=equator) -->
-              <polygon points="100,22 30,110 170,110" fill="#dedede" opacity="0.85"/>
-              <!-- Lower cone (base=equator, bottom=black apex) -->
-              <polygon points="100,198 30,110 170,110" fill="#111" opacity="0.95"/>
-              <!-- Equator (spectrum band) -->
-              <rect x="30" y="107" width="140" height="6" rx="1" fill="url(#hslEq6)"/>
-              <!-- Axis -->
-              <line x1="100" y1="24" x2="100" y2="196" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
-              <!-- Points -->
-              <circle cx="100" cy="22"  r="4" fill="white" opacity="0.9"/>
-              <circle cx="100" cy="198" r="4" fill="#222"/>
-              <!-- Labels -->
-              <text x="106" y="20"  font-size="8" fill="#ccc"    font-family="monospace">L=100% — Blanco</text>
-              <text x="106" y="202" font-size="8" fill="#555"    font-family="monospace">L=0%   — Negro</text>
-              <text x="100" y="104" font-size="7" fill="#FFCC00" font-family="monospace" text-anchor="middle">L=50%, S=100%</text>
-              <text x="5"   y="115" font-size="7" fill="#FFCC00" font-family="monospace">Colores puros</text>
-
-              <!-- HSV Cone label -->
-              <text x="100" y="232" font-size="10" fill="#515155" font-family="Inter,sans-serif" text-anchor="middle" font-weight="600">HSV — Cono simple</text>
-              <!-- Triangle: top-left=white(30,250), top-right=color(170,250), apex=black(100,355) -->
-              <defs>
-                <linearGradient id="hsvTopRow" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%"   stop-color="#ffffff"/>
-                  <stop offset="100%" stop-color="#4488FF"/>
-                </linearGradient>
-                <linearGradient id="hsvBody" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%"   stop-color="#666" stop-opacity="0"/>
-                  <stop offset="100%" stop-color="#000"/>
-                </linearGradient>
-              </defs>
-              <polygon points="30,250 170,250 100,350" fill="#1d1d21"/>
-              <polygon points="30,250 170,250 100,350" fill="url(#hsvTopRow)" opacity="0.5"/>
-              <polygon points="30,250 170,250 100,350" fill="url(#hsvBody)" opacity="0.7"/>
-              <line x1="30" y1="250" x2="170" y2="250" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-              <!-- Points -->
-              <circle cx="30"  cy="250" r="4" fill="white" opacity="0.85"/>
-              <circle cx="170" cy="250" r="4" fill="#4488FF"/>
-              <circle cx="100" cy="350" r="4" fill="#222"/>
-              <!-- Labels -->
-              <text x="24"  cy="248" font-size="7" fill="#888" font-family="monospace" text-anchor="end">Blanco</text>
-              <text x="24"  y="248" font-size="7" fill="#888" font-family="monospace" text-anchor="end">Blanco</text>
-              <text x="24"  y="256" font-size="7" fill="#555" font-family="monospace" text-anchor="end">S=0%</text>
-              <text x="175" y="248" font-size="7" fill="#4488FF" font-family="monospace">Color puro</text>
-              <text x="175" y="256" font-size="7" fill="#4488FF" font-family="monospace">S=100%</text>
-              <text x="106" y="354" font-size="7" fill="#515155" font-family="monospace">V=0% — Negro</text>
-            </svg>
-            <div class="edu-diagram-cap">Sección transversal del bicono HSL (arriba) y el cono HSV (abajo)</div>
           </div>
         </div>
       </div>

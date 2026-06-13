@@ -13,14 +13,35 @@ function initEduNav() {
   const chapters = document.querySelectorAll('.edu-chapter');
   if (!pills.length) return;
 
-  function showChapter(id) {
-    pills.forEach(p => p.classList.toggle('active', p.dataset.ch === id));
-    chapters.forEach(c => c.classList.toggle('active', c.id === 'ch-' + id));
-    const navTop = document.querySelector('.edu-nav-wrap');
-    if (navTop) window.scrollTo({ top: navTop.getBoundingClientRect().top + window.scrollY - 2, behavior: 'smooth' });
+  function scrollToChapter(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  pills.forEach(pill => pill.addEventListener('click', () => showChapter(pill.dataset.ch)));
+  pills.forEach(pill =>
+    pill.addEventListener('click', () => scrollToChapter('ch-' + pill.dataset.ch))
+  );
+
+  document.querySelectorAll('.edu-toc-card').forEach(card =>
+    card.addEventListener('click', e => {
+      e.preventDefault();
+      scrollToChapter(card.getAttribute('href').slice(1));
+    })
+  );
+
+  function updateActiveNav() {
+    const threshold = 72;
+    let active = chapters[0] ? chapters[0].id.replace('ch-', '') : '01';
+    chapters.forEach(ch => {
+      if (ch.getBoundingClientRect().top <= threshold) {
+        active = ch.id.replace('ch-', '');
+      }
+    });
+    pills.forEach(p => p.classList.toggle('active', p.dataset.ch === active));
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
 }
 
 /* ── Ch 02 — LMS Simulator ──────────────────── */
