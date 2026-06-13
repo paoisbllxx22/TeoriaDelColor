@@ -954,7 +954,7 @@ code {
   /* Topbar: compact, hide space-tabs (moved below the 3D model area) */
   .topbar { padding: 0 .75rem; gap: .4rem; }
   .tb-center { display: none; }
-  .space-tabs-mobile { display: flex; align-self: flex-start; }
+  .space-tabs-mobile { display: flex; align-self: center; }
 
   /* Lab: single column, natural DOM order */
   .lab {
