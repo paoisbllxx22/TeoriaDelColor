@@ -6,11 +6,76 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://fonts.googleapis.com https://fonts.gstatic.com; object-src 'none'; base-uri 'self';" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="no-referrer" />
-  <title>Color Lab — RGB · HEX · HSL · HSV</title>
+
+  <!-- ── SEO primario ─────────────────────────── -->
+  <title>Selector de Color Online | RGB, HEX, HSL, HSV — Color Lab</title>
+  <meta name="description" content="Selector y convertidor de colores online gratuito. Convierte entre RGB, HEX, HSL y HSV, explora modelos 3D interactivos del bicono y cono de color, y aprende teoría del color." />
+  <meta name="keywords" content="selector de color, paleta de colores, convertidor colores, RGB a HEX, código de color, color picker, rueda de colores, HSL HSV, teoría del color, colores online, color lab" />
+  <meta name="author" content="Paola Gamboa" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0d0d0f" />
+  <link rel="canonical" href="https://paoisbllxx22.github.io/TeoriaDelColor/" />
+
+  <!-- ── Open Graph (redes sociales) ─────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Color Lab" />
+  <meta property="og:locale"      content="es_ES" />
+  <meta property="og:url"         content="https://paoisbllxx22.github.io/TeoriaDelColor/" />
+  <meta property="og:title"       content="Selector de Color Online | RGB, HEX, HSL, HSV — Color Lab" />
+  <meta property="og:description" content="Selector y convertidor de colores online gratuito. Convierte entre RGB, HEX, HSL y HSV, explora modelos 3D interactivos y aprende teoría del color." />
+
+  <!-- ── Twitter / X Card ─────────────────────── -->
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="Selector de Color Online | Color Lab" />
+  <meta name="twitter:description" content="Convierte colores entre RGB, HEX, HSL y HSV. Modelos 3D interactivos y teoría del color." />
+  <meta name="twitter:creator"     content="@paoisbllxx22" />
+
+  <!-- ── Datos estructurados JSON-LD ──────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Color Lab",
+    "url": "https://paoisbllxx22.github.io/TeoriaDelColor/",
+    "description": "Selector y convertidor de colores online gratuito. Convierte entre RGB, HEX, HSL y HSV, explora modelos 3D interactivos del bicono y cono de color, y aprende teoría del color.",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "inLanguage": "es",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Paola Gamboa",
+      "sameAs": [
+        "https://github.com/paoisbllxx22",
+        "https://instagram.com/paoisbllxx22"
+      ]
+    },
+    "featureList": [
+      "Selector de color interactivo",
+      "Conversor RGB a HEX",
+      "Conversor HEX a RGB",
+      "Conversor RGB a HSL",
+      "Conversor RGB a HSV",
+      "Rueda cromatica interactiva",
+      "Modelo 3D bicono HSL",
+      "Modelo 3D cono HSV",
+      "Teoria del color educativa"
+    ]
+  }
+  </script>
+
+  <!-- ── Fuentes ───────────────────────────────── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script src="js/vendor/three.min.js"></script>
-  <script src="js/vendor/OrbitControls.js"></script>
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/theory.css" />
 </head>
@@ -24,7 +89,7 @@
   <!-- ── TOPBAR ──────────────────────────── -->
   <header class="topbar">
     <div class="tb-left">
-      <span class="logo">COLOR LAB</span>
+      <h1 class="logo">COLOR LAB</h1>
     </div>
 
     <div class="tb-center">
@@ -936,6 +1001,8 @@ oklch(0.80 0.18 264)  /* Azul     L=0.80: mismo brillo real  */</div>
 
 </div><!-- /edu-section -->
 
+<script src="js/vendor/three.min.js"></script>
+<script src="js/vendor/OrbitControls.js"></script>
 <script src="js/colorMath.js"></script>
 <script src="js/hueWheel.js"></script>
 <script src="js/topView.js"></script>
