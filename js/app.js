@@ -413,6 +413,8 @@ function initColorInput() {
 function initTheme() {
   function applyTheme(dark) {
     isDark = dark;
+    document.documentElement.classList.toggle('theme-dark',  dark);
+    document.documentElement.classList.toggle('theme-light', !dark);
     document.body.classList.toggle('theme-dark',  dark);
     document.body.classList.toggle('theme-light', !dark);
     document.querySelectorAll('[data-theme-icon]').forEach(el => {
