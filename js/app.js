@@ -670,6 +670,46 @@ function initResizeObserver() {
   ro.observe(area);
 }
 
+function initDpad() {
+  const buttons = document.querySelectorAll('.dpad-btn');
+  if (!buttons.length) return;
+
+  const timers = new Map();
+
+  function fireArrow(key) {
+    document.dispatchEvent(new KeyboardEvent('keydown', {
+      key, code: key, bubbles: true, cancelable: true
+    }));
+  }
+
+  function releaseArrow(key) {
+    document.dispatchEvent(new KeyboardEvent('keyup', {
+      key, code: key, bubbles: true
+    }));
+  }
+
+  buttons.forEach(btn => {
+    const key = btn.dataset.key;
+
+    btn.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      btn.setPointerCapture(e.pointerId);
+      fireArrow(key);
+      timers.set(btn, setInterval(() => fireArrow(key), 80));
+    });
+
+    const stop = () => {
+      const id = timers.get(btn);
+      if (id !== undefined) { clearInterval(id); timers.delete(btn); }
+      releaseArrow(key);
+    };
+
+    btn.addEventListener('pointerup',     stop);
+    btn.addEventListener('pointerleave',  stop);
+    btn.addEventListener('pointercancel', stop);
+  });
+}
+
 /* ═══════════════════════════════════════════════
    BOOT
    ═══════════════════════════════════════════════ */
@@ -684,6 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTopView();
   initResizeObserver();
   initKeyboardControls();
+  initDpad();
   initColorInput();
 
   updateAll(currentR, currentG, currentB);

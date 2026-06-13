@@ -681,3 +681,41 @@ body.theme-light .theory-scroll-cue {
   width: 120px;
 }
 .edu-data-val { color: var(--et2); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Mobile  ≤ 767px  (theory section)
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Nav pills: tighter */
+  .edu-nav  { padding: 0 .75rem; }
+  .edu-pill { padding: .75rem .8rem; font-size: .72rem; }
+
+  /* TOC index */
+  .edu-toc       { padding: 2rem 1.25rem 2rem; }
+  .edu-toc-title { font-size: 1.3rem; }
+  .edu-toc-desc  { font-size: .82rem; }
+
+  /* Chapter header */
+  .edu-ch-header { padding: 2rem 1.25rem 1.5rem; }
+  .edu-ch-title  { font-size: 1.35rem; }
+  .edu-ch-sub    { font-size: .82rem; }
+
+  /* Chapter body */
+  .edu-body  { padding: 0 1.25rem 3rem; }
+  .edu-block { padding: 1.4rem 1.25rem; }
+
+  /* Interactive widgets: tighter padding */
+  .edu-interactive { padding: 1.2rem 1rem; }
+
+  /* Bit calculator: smaller cells so all 8 fit in one row on narrow screens */
+  .edu-bits     { gap: .3rem; }
+  .edu-bit      { gap: .15rem; }
+  .edu-bit-cell { width: 32px; height: 32px; font-size: .9rem; }
+  .edu-bit-weight { font-size: .56rem; }
+
+  /* Data tables */
+  .edu-table              { font-size: .78rem; }
+  .edu-th, .edu-td        { padding: .5rem .65rem; }
+
+}

@@ -41,8 +41,8 @@
   <!-- ── 3-COLUMN LAB ──────────────────────── -->
   <div class="lab">
 
-    <!-- ─── COLUMNA IZQUIERDA (320px) ─────── -->
-    <aside class="col-left">
+    <!-- ─── INPUT + SWATCH (primeros en mobile) ─── -->
+    <div class="col-color">
 
       <!-- Color input -->
       <div class="color-input-wrap">
@@ -65,6 +65,67 @@
         <span class="sw-hex"    id="sw-hex">#FF6432</span>
         <span class="sw-family" id="sw-family">Naranja</span>
       </div>
+
+    </div><!-- /col-color -->
+
+    <!-- ─── COLUMNA CENTRAL (flex) ─────────── -->
+    <main class="col-center">
+
+      <!-- Toggle de vista -->
+      <div class="view-toggle">
+        <button class="view-btn"        data-view="top">Vista superior</button>
+        <button class="view-btn active" data-view="3d">3D</button>
+      </div>
+
+      <!-- Área de visualización -->
+      <div class="view-area" id="view-area">
+        <!-- Vista superior: rueda HS al L/V actual -->
+        <div class="view-panel" id="panel-top">
+          <canvas id="top-view"></canvas>
+        </div>
+        <!-- 3D: Three.js -->
+        <div class="view-panel panel-3d active" id="panel-3d">
+          <div id="three-hsl" class="three-slot"></div>
+          <div id="three-hsv" class="three-slot hidden"></div>
+          <div class="kb-hint">
+            <span class="kb-group"><kbd>←</kbd><kbd>→</kbd> Tono·Sat horizontal</span>
+            <span class="kb-sep">·</span>
+            <span class="kb-group"><kbd>↑</kbd><kbd>↓</kbd> Claridad</span>
+            <span class="kb-sep">·</span>
+            <span class="kb-group"><kbd>⇧↑</kbd><kbd>⇧↓</kbd> Tono·Sat vertical</span>
+            <span class="kb-sep">·</span>
+            <span class="kb-group"><kbd>Ctrl</kbd> paso lento</span>
+          </div>
+          <!-- Flechas virtuales para mobile -->
+          <div class="mobile-dpad">
+            <button class="dpad-btn dpad-up"    data-key="ArrowUp"    aria-label="Subir claridad">▲</button>
+            <button class="dpad-btn dpad-left"  data-key="ArrowLeft"  aria-label="Mover izquierda">◀</button>
+            <button class="dpad-btn dpad-right" data-key="ArrowRight" aria-label="Mover derecha">▶</button>
+            <button class="dpad-btn dpad-down"  data-key="ArrowDown"  aria-label="Bajar claridad">▼</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider L / V -->
+      <div class="lv-control">
+        <div class="lv-row">
+          <span class="lv-lbl" id="lv-lbl">L</span>
+          <input type="range" id="lv-slider" class="lv-slider" min="0" max="100" value="60" />
+          <span class="lv-val" id="lv-val">60%</span>
+        </div>
+      </div>
+
+      <!-- Mini valores H · S · L/V -->
+      <div class="hsl-mini">
+        <span>H <b id="mini-h">15°</b></span>
+        <span>S <b id="mini-s">100%</b></span>
+        <span><span id="mini-lv-lbl">L</span> <b id="mini-lv">60%</b></span>
+      </div>
+
+    </main><!-- /col-center -->
+
+    <!-- ─── RUEDA + SLIDERS (tercero en mobile) ── -->
+    <aside class="col-controls">
 
       <!-- Rueda cromática -->
       <div class="wheel-wrap">
@@ -108,56 +169,7 @@
         </div>
       </div>
 
-    </aside><!-- /col-left -->
-
-    <!-- ─── COLUMNA CENTRAL (flex) ─────────── -->
-    <main class="col-center">
-
-      <!-- Toggle de vista -->
-      <div class="view-toggle">
-        <button class="view-btn"        data-view="top">Vista superior</button>
-        <button class="view-btn active" data-view="3d">3D</button>
-      </div>
-
-      <!-- Área de visualización -->
-      <div class="view-area" id="view-area">
-        <!-- Vista superior: rueda HS al L/V actual -->
-        <div class="view-panel" id="panel-top">
-          <canvas id="top-view"></canvas>
-        </div>
-        <!-- 3D: Three.js -->
-        <div class="view-panel panel-3d active" id="panel-3d">
-          <div id="three-hsl" class="three-slot"></div>
-          <div id="three-hsv" class="three-slot hidden"></div>
-          <div class="kb-hint">
-            <span class="kb-group"><kbd>←</kbd><kbd>→</kbd> Tono·Sat horizontal</span>
-            <span class="kb-sep">·</span>
-            <span class="kb-group"><kbd>↑</kbd><kbd>↓</kbd> Claridad</span>
-            <span class="kb-sep">·</span>
-            <span class="kb-group"><kbd>⇧↑</kbd><kbd>⇧↓</kbd> Tono·Sat vertical</span>
-            <span class="kb-sep">·</span>
-            <span class="kb-group"><kbd>Ctrl</kbd> paso lento</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slider L / V -->
-      <div class="lv-control">
-        <div class="lv-row">
-          <span class="lv-lbl" id="lv-lbl">L</span>
-          <input type="range" id="lv-slider" class="lv-slider" min="0" max="100" value="60" />
-          <span class="lv-val" id="lv-val">60%</span>
-        </div>
-      </div>
-
-      <!-- Mini valores H · S · L/V -->
-      <div class="hsl-mini">
-        <span>H <b id="mini-h">15°</b></span>
-        <span>S <b id="mini-s">100%</b></span>
-        <span><span id="mini-lv-lbl">L</span> <b id="mini-lv">60%</b></span>
-      </div>
-
-    </main><!-- /col-center -->
+    </aside><!-- /col-controls -->
 
     <!-- ─── COLUMNA DERECHA (260px) ────────── -->
     <aside class="col-right">
