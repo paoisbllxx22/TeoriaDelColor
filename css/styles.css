@@ -929,6 +929,9 @@ code {
   color: #8cb8ff;
 }
 
+/* Mobile space-tabs clone: hidden on desktop, shown inside col-center on mobile */
+.space-tabs-mobile { display: none; }
+
 /* ═══════════════════════════════════════════════════════
    RESPONSIVE — Tablet  768px – 1100px
    ═══════════════════════════════════════════════════════ */
@@ -948,9 +951,10 @@ code {
   /* App root: expand to content height, page scrolls naturally */
   .app { height: auto; }
 
-  /* Topbar: compact */
+  /* Topbar: compact, hide space-tabs (moved below the 3D model area) */
   .topbar { padding: 0 .75rem; gap: .4rem; }
-  .space-tab { font-size: .65rem; padding: .2rem .5rem; }
+  .tb-center { display: none; }
+  .space-tabs-mobile { display: flex; align-self: flex-start; }
 
   /* Lab: single column, natural DOM order */
   .lab {

@@ -71,6 +71,12 @@
     <!-- ─── COLUMNA CENTRAL (flex) ─────────── -->
     <main class="col-center">
 
+      <!-- Selector de espacio: visible solo en mobile (en desktop está en el topbar) -->
+      <div class="space-tabs space-tabs-mobile" role="tablist">
+        <button class="space-tab active" data-space="hsl" role="tab">Bicono HSL</button>
+        <button class="space-tab"        data-space="hsv" role="tab">Cono HSV</button>
+      </div>
+
       <!-- Toggle de vista -->
       <div class="view-toggle">
         <button class="view-btn"        data-view="top">Vista superior</button>
