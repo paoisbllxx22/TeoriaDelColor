@@ -51,8 +51,20 @@ function buildAnalysis(r, g, b, hsl, hsv) {
   const domCh  = (r >= g && r >= b) ? 'R' : (g > r && g >= b) ? 'G' : 'B';
 
   const line1 = hsl.s < 8
-    ? `Color acromático — sin tono definido. Luminosidad perceptual ≈ <strong>${lum.toFixed(0)}</strong>/255.`
-    : `Familia <strong>${fam.name}</strong>. Matiz <strong>${hsl.h.toFixed(1)}°</strong>, canal dominante <strong>${domCh}</strong>.`;
+    ? [
+        { text: 'Color acromático — sin tono definido. Luminosidad perceptual ≈ ' },
+        { text: lum.toFixed(0), bold: true },
+        { text: '/255.' }
+      ]
+    : [
+        { text: 'Familia ' },
+        { text: fam.name, bold: true },
+        { text: '. Matiz ' },
+        { text: hsl.h.toFixed(1) + '°', bold: true },
+        { text: ', canal dominante ' },
+        { text: domCh, bold: true },
+        { text: '.' }
+      ];
 
   const cone  = activeSpace === 'hsl' ? 'bicono HSL' : 'cono HSV';
   const sUsed = activeSpace === 'hsl' ? hsl.s : hsv.s;
@@ -62,11 +74,19 @@ function buildAnalysis(r, g, b, hsl, hsv) {
     ? (hsl.s / 100 * (1 - Math.abs(2 * hsl.l / 100 - 1))).toFixed(2)
     : (hsv.s / 100 * hsv.v / 100).toFixed(2);
 
-  const line2 = `En el ${cone}: radio = <strong>${radius}</strong>, ${lvLbl} = ${lvUsed.toFixed(0)}%, S = ${sUsed.toFixed(0)}%.`;
+  const line2 = [
+    { text: 'En el ' + cone + ': radio = ' },
+    { text: radius, bold: true },
+    { text: ', ' + lvLbl + ' = ' + lvUsed.toFixed(0) + '%, S = ' + sUsed.toFixed(0) + '%.' }
+  ];
 
   const satWord = hsl.s > 70 ? 'muy saturado' : hsl.s > 35 ? 'moderadamente saturado' : 'poco saturado';
   const lumWord = lum > 180 ? 'claro' : lum < 80 ? 'oscuro' : 'de luminosidad media';
-  const line3 = `Tono ${satWord} y ${lumWord}. Luminancia W3C: <strong>${(lum / 255 * 100).toFixed(1)}%</strong>.`;
+  const line3 = [
+    { text: 'Tono ' + satWord + ' y ' + lumWord + '. Luminancia W3C: ' },
+    { text: (lum / 255 * 100).toFixed(1) + '%', bold: true },
+    { text: '.' }
+  ];
 
   return [line1, line2, line3];
 }
@@ -221,8 +241,22 @@ function updateHSVBars(hsl, hsv) {
 /* ── Analysis text ───────────────────────────── */
 function updateAnalysis(r, g, b, hsl, hsv) {
   const lines = buildAnalysis(r, g, b, hsl, hsv);
-  document.getElementById('analysis').innerHTML =
-    lines.map(l => `<p class="analysis-line">${l}</p>`).join('');
+  const container = document.getElementById('analysis');
+  container.textContent = '';
+  lines.forEach(segments => {
+    const p = document.createElement('p');
+    p.className = 'analysis-line';
+    segments.forEach(seg => {
+      if (seg.bold) {
+        const strong = document.createElement('strong');
+        strong.textContent = seg.text;
+        p.appendChild(strong);
+      } else {
+        p.appendChild(document.createTextNode(seg.text));
+      }
+    });
+    container.appendChild(p);
+  });
 }
 
 /* ── 3D models ───────────────────────────────── */
@@ -250,8 +284,9 @@ function updateSideView(hsl, hsv) {
    ═══════════════════════════════════════════════ */
 
 function parseColorInput(raw) {
+  if (typeof raw !== 'string') return null;
   const s = raw.trim();
-  if (!s) return null;
+  if (!s || s.length > 64) return null;
 
   // HEX: #RGB, #RRGGBB (ignore alpha)
   const hexMatch = s.match(/^#?([0-9a-f]{3,8})$/i);
