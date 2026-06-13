@@ -282,6 +282,7 @@ a      { color: inherit; text-decoration: none; }
   border-radius: 50%;
   cursor: crosshair;
   display: block;
+  touch-action: none;
 }
 
 .wheel-hint {
@@ -421,6 +422,11 @@ input[type="range"]::-webkit-slider-thumb:active { cursor: grabbing; }
 .three-slot {
   width: 100%; height: 100%;
   position: absolute; inset: 0;
+  touch-action: none;
+}
+
+#top-view {
+  touch-action: none;
 }
 .three-slot.hidden { display: none; }
 

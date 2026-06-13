@@ -499,7 +499,7 @@ function initHueWheel() {
 
   let dragging = false;
   canvas.addEventListener('pointerdown', e => { dragging = true; canvas.setPointerCapture(e.pointerId); onWheelPointer(e); });
-  canvas.addEventListener('pointermove', e => { if (dragging) onWheelPointer(e); });
+  canvas.addEventListener('pointermove', e => { if (dragging) { e.preventDefault(); onWheelPointer(e); } });
   canvas.addEventListener('pointerup',   () => { dragging = false; });
 }
 
